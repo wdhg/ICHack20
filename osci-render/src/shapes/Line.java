@@ -1,5 +1,8 @@
 package shapes;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class Line extends Shape {
   private final Point a;
   private final Point b;
@@ -31,6 +34,15 @@ public class Line extends Shape {
   @Override
   public double nextY(double drawingProgress) {
     return (float) (getY1() + (getY2() - getY1()) * drawingProgress);
+  }
+
+  @Override
+  public Line scale(double factor) {
+    return new Line(a.scale(factor), b.scale(factor), weight);
+  }
+
+  public static List<Line> scaleAll(List<Line> lines, double factor) {
+    return lines.stream().map(l -> l.scale(factor)).collect(Collectors.toList());
   }
 
   private double getX1() {

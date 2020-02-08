@@ -19,6 +19,11 @@ public class Point extends Shape {
     return Math.sqrt(Math.pow(a.getX() - b.getX(), 2) + Math.pow(a.getY() - b.getY(), 2));
   }
 
+  @Override
+  public Point scale(double factor) {
+    return new Point(x * factor, y * factor);
+  }
+
   public double getX() {
     return x;
   }
