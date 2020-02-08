@@ -24,4 +24,14 @@ public class Hypercube {
       this.edgeData.add(i);
     }
   }
+
+  // project w into x,y,z space
+  public List<Vector3> projectTo3D() {
+    return new ArrayList<>();
+  }
+
+  // project z into x,y plane
+  public List<Vector2> projectTo2D() {
+    return new ArrayList<>();
+  }
 }
