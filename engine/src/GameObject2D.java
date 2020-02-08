@@ -26,7 +26,7 @@ public class GameObject2D {
   }
 
   public void move(Vector2 delta) {
-
+    this.setPosition(this.getPosition().add(delta));
   }
 
   // in degrees clockwise (negative for anticlockwise
