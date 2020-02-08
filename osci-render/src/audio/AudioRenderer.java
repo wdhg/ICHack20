@@ -24,6 +24,7 @@ public class AudioRenderer extends Thread {
     shapes = new ArrayList<>();
     currentShape = 0;
     framesDrawn = 0;
+    FACTOR = 1;
   }
 
   static void render(XtStream stream, Object input, Object output, int frames,

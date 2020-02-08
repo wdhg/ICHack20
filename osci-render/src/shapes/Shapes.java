@@ -8,9 +8,9 @@ public class Shapes {
     List<Shape> lines = new ArrayList<>();
 
     lines.add(new Line(x, y, x + sideLength, y));
-    lines.add(new Line(x + sideLength, y, x + sideLength, y + sideLength));
-    lines.add(new Line(x + sideLength, y + sideLength, x, y + sideLength));
-    lines.add(new Line(x, y + sideLength, x, y));
+    lines.add(new Line(x + sideLength, y, x + sideLength, y - sideLength));
+    lines.add(new Line(x + sideLength, y - sideLength, x, y - sideLength));
+    lines.add(new Line(x, y - sideLength, x, y));
 
     return lines;
   }

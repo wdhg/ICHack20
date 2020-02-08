@@ -4,14 +4,20 @@ public class Circle extends Shape {
   private final double radius;
   private final Point point;
 
-  public Circle(double radius, Point point) {
-    this.radius = radius;
+  public Circle(Point point, double radius) {
     this.point = point;
+    this.radius = radius;
+
+    length = 2 * Math.PI * radius;
+  }
+
+  public Circle(double x, double y, double radius) {
+    this(new Point(x, y), radius);
   }
 
   @Override
   public Circle scale(double factor) {
-    return new Circle(radius * factor, point.scale(factor));
+    return new Circle(point.scale(factor), radius * factor);
   }
 
   @Override
