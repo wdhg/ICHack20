@@ -23,4 +23,9 @@ public abstract class Shape {
   public void setEdgeData(List<Integer> edgeData) {
     this.edgeData = edgeData;
   }
+
+  public boolean intersects(Shape other) {
+    
+    return false;
+  }
 }
