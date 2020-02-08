@@ -2,11 +2,13 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 public class Paddle {
-    private static final int WIDTH = 10, HEIGHT = 60;
+    public static final int WIDTH = 10, HEIGHT = 60;
     private Main game;
     private int up, down;
     private int x;
     private int y, ya;
+    private Rectangle paddle;
+    private Vector2 position;
 
     public Paddle(Main game, int up, int down, int x) {
         this.game = game;
@@ -14,6 +16,8 @@ public class Paddle {
         y = game.getHeight() / 2;
         this.up = up;
         this.down = down;
+        paddle = new Rectangle(x, y, WIDTH, HEIGHT);
+        position = new Vector2(x, y);
     }
 
     public void update() {
@@ -23,6 +27,9 @@ public class Paddle {
             y++;
         else if (y == game.getHeight() - HEIGHT - 29)
             y--;
+
+        position.setY(y);
+        paddle.y = y;
     }
 
     public void pressed(int keyCode) {
@@ -43,5 +50,9 @@ public class Paddle {
 
     public void paint(Graphics g) {
         g.fillRect(x, y, WIDTH, HEIGHT);
+    }
+
+    public Vector2 getPosition() {
+        return position;
     }
 }

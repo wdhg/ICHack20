@@ -1,5 +1,4 @@
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -80,4 +79,17 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         player1.paint(g);
         player2.paint(g);
     }
+
+    public Vector2 getBallPosition() {
+        return ball.getPosition();
+    }
+
+    public Vector2 getPlayer1Position() {
+        return player1.getPosition();
+    }
+
+    public Vector2 getPlayer2Position() {
+        return player2.getPosition();
+    }
+
 }

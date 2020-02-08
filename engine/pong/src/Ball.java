@@ -1,19 +1,19 @@
-import java.awt.Graphics;
+import java.awt.*;
 
 import javax.swing.JOptionPane;
 
 public class Ball {
-    private static final double WIDTH = 30, HEIGHT = 30;
+    public static final int WIDTH = 30, HEIGHT = 30;
     private Main game;
     private int x, y, xa = 2, ya = 2;
     private Vector2 position;
-    private GameObject2D ball;
+    private Rectangle ball;
 
     public Ball(Main game) {
         x = game.getWidth() / 2;
         y = game.getHeight() / 2;
         position = new Vector2(x, y);
-        ball = new GameObject2D(position, 0, new Rectangle(x, y, WIDTH, HEIGHT));
+        ball = new Rectangle(x, y, WIDTH, HEIGHT);
         this.game = game;
     }
 
@@ -24,7 +24,8 @@ public class Ball {
         position.setX(x);
         position.setY(y);
 
-        ball.moveTo(position);
+        ball.x = x;
+        ball.y = y;
 
         if (x < 0) {
             game.getPanel().increaseScore(1);
@@ -54,12 +55,21 @@ public class Ball {
     public Rectangle getBounds() {
         position.setX(x);
         position.setY(y);
-
-        ball.moveTo(position);
-        return new Rectangle(position, WIDTH, HEIGHT);
+        ball.x = x;
+        ball.y = y;
+        return new Rectangle(x, y, WIDTH, HEIGHT);
     }
 
     public void paint(Graphics g) {
         g.fillRect(x, y, WIDTH, HEIGHT);
     }
+
+    public Vector2 getPosition() {
+        return position;
+    }
+
+    public Vector2 addVector(int x, int y) {
+        return new Vector2(position.getX() + x, position.getY() + y);
+    }
+
 }
