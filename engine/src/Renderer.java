@@ -13,6 +13,10 @@ public abstract class Renderer {
   }
 
   public void render(List<Vector2> vertices, List<Integer> connections) {
-    this.pipe.send(vertices, connections);
+    try {
+      this.pipe.send(vertices, connections);
+    } catch (Exception e) {
+      System.err.println("Cannot send frame");
+    }
   }
 }
