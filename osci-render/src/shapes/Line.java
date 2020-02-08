@@ -1,6 +1,7 @@
 package shapes;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Line extends Shape {
@@ -67,5 +68,19 @@ public class Line extends Shape {
 
   private double getY2() {
     return b.getY();
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) return true;
+    if (obj == null || getClass() != obj.getClass()) return false;
+    Line line = (Line) obj;
+    return a.equals(line.a) &&
+      b.equals(line.b);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(a, b);
   }
 }

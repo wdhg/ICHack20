@@ -1,9 +1,12 @@
 package shapes;
 
 import org.jgrapht.Graph;
+import org.jgrapht.GraphPath;
+import org.jgrapht.alg.cycle.ChinesePostman;
 import org.jgrapht.graph.DefaultDirectedWeightedGraph;
 import org.jgrapht.graph.DefaultWeightedEdge;
 
+import javax.net.ssl.SSLHandshakeException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,14 +22,35 @@ public class Shapes {
     return lines;
   }
 
-  public static List<Line> sortLines(List<Line> lines) {
+  public static List<Shape> sortLines(List<Shape> shapes) {
     Graph<Point, DefaultWeightedEdge> graph = new DefaultDirectedWeightedGraph<>(DefaultWeightedEdge.class);
 
-    for (Line line : lines) {
+    for (Shape shape : shapes) {
+      Line line = (Line) shape;
+
       graph.addVertex(line.getA());
       graph.addVertex(line.getB());
+
+      DefaultWeightedEdge edge = new DefaultWeightedEdge();
+      graph.addEdge(line.getA(), line.getB(), edge);
+      graph.setEdgeWeight(edge, line.length * line.weight);
     }
 
-    return null;
+    ChinesePostman<Point, DefaultWeightedEdge> cp = new ChinesePostman<>();
+    GraphPath<Point, DefaultWeightedEdge> edges = cp.getCPPSolution(graph);
+
+    List<Shape> sortedLines = new ArrayList<>();
+    Point prevPoint = edges.getStartVertex();
+    Point firstPoint = edges.getStartVertex();
+    List<Point> path = edges.getVertexList();
+
+    for (int i = 1; i < edges.getLength(); i++) {
+      sortedLines.add(new Line(prevPoint, path.get(i)));
+      prevPoint = path.get(i);
+    }
+
+    sortedLines.add(new Line(prevPoint, firstPoint));
+
+    return sortedLines;
   }
 }
