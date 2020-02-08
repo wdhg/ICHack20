@@ -6,7 +6,7 @@ public class Camera {
   private double fov;
 
   public Camera(Vector3 position) {
-    this.position = position;
+    position = position;
     this.d = 1;
   }
 

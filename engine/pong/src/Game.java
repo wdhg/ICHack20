@@ -1,54 +1,83 @@
-import javax.swing.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-import static com.sun.java.accessibility.util.AWTEventMonitor.addKeyListener;
+import javax.swing.JPanel;
+import javax.swing.Timer;
 
-
-public class Game implements KeyListener, ActionListener {
-
-    private int width, height, scorePlayer1, scorePlayer2;
+public class Game extends JPanel implements ActionListener, KeyListener {
+    private Main game;
     private Ball ball;
     private Paddle player1, player2;
+    private int score1, score2;
 
-    public Game(int width, int height) {
-        this.width = width;
-        this.height = height;
-        this.ball = new Ball(this);
-        this.player1 = new Paddle(this, KeyEvent.VK_UP, KeyEvent.VK_DOWN);
-        this.player2 = new Paddle(this, KeyEvent.VK_W, KeyEvent.VK_S);
-        this.scorePlayer1 = 0;
-        this.scorePlayer2 = 0;
+    public Game(Main game) {
+        setBackground(Color.WHITE);
+        this.game = game;
+        ball = new Ball(game);
+        player1 = new Paddle(game, KeyEvent.VK_UP, KeyEvent.VK_DOWN, game.getWidth() - 36);
+        player2 = new Paddle(game, KeyEvent.VK_W, KeyEvent.VK_S, 20);
+        Timer timer = new Timer(5, this);
+        timer.start();
         addKeyListener(this);
+        setFocusable(true);
     }
 
-    public int getHeight() {
-        return height;
+    public Paddle getPlayer(int playerNo) {
+        if (playerNo == 1)
+            return player1;
+        else
+            return player2;
     }
 
-    public int getWidth() {
-        return width;
+    public void increaseScore(int playerNo) {
+        if (playerNo == 1)
+            score1++;
+        else
+            score2++;
+    }
+
+    public int getScore(int playerNo) {
+        if (playerNo == 1)
+            return score1;
+        else
+            return score2;
+    }
+
+    private void update() {
+        ball.update();
+        player1.update();
+        player2.update();
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        update();
+        repaint();
+    }
+
+    public void keyPressed(KeyEvent e) {
+        player1.pressed(e.getKeyCode());
+        player2.pressed(e.getKeyCode());
+    }
+
+    public void keyReleased(KeyEvent e) {
+        player1.released(e.getKeyCode());
+        player2.released(e.getKeyCode());
+    }
+
+    public void keyTyped(KeyEvent e) {
+        ;
     }
 
     @Override
-    public void keyTyped(KeyEvent keyEvent) {
-
-    }
-
-    @Override
-    public void keyPressed(KeyEvent keyEvent) {
-        player1.pressed(keyEvent.getKeyCode());
-    }
-
-    @Override
-    public void keyReleased(KeyEvent keyEvent) {
-
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent actionEvent) {
-        
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawString(game.getPanel().getScore(1) + " : " + game.getPanel().getScore(2), game.getWidth() / 2, 10);
+        ball.paint(g);
+        player1.paint(g);
+        player2.paint(g);
     }
 }
