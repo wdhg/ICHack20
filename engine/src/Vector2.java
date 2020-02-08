@@ -24,12 +24,14 @@ public class Vector2 {
     this.y = y;
   }
 
-  public void add(double x, double y) {
-    this.setX(this.getX() + x);
-    this.setY(this.getY() + y);
+  public Vector2 add(double x, double y) {
+    return new Vector2(
+      this.getX() + x,
+      this.getY() + y
+    );
   }
 
-  public void add(Vector2 other) {
-    this.add(other.getX(), other.getY());
+  public Vector2 add(Vector2 other) {
+    return this.add(other.getX(), other.getY());
   }
 }
