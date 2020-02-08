@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class Shape {
+public class Shape extends GameObject2D {
 
   private Tetrominoe pieceShape;
   private int[][] coords;
@@ -91,23 +91,11 @@ public class Shape {
     return m;
   }
 
-  Shape rotateLeft() {
-
+  private Shape rotateLeft() {
     if (pieceShape == Tetrominoe.SquareShape) {
-
       return this;
     }
-
-    var result = new Shape();
-    result.pieceShape = pieceShape;
-
-    for (int i = 0; i < 4; i++) {
-
-      result.setX(i, y(i));
-      result.setY(i, -x(i));
-    }
-
-    return result;
+    super.rotate(-90);
   }
 
   Shape rotateRight() {
