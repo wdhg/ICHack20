@@ -1,5 +1,9 @@
 package shapes;
 
+import org.jgrapht.Graph;
+import org.jgrapht.graph.DefaultDirectedWeightedGraph;
+import org.jgrapht.graph.DefaultWeightedEdge;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,5 +17,16 @@ public class Shapes {
     lines.add(new Line(x, y - sideLength, x, y));
 
     return lines;
+  }
+
+  public static List<Line> sortLines(List<Line> lines) {
+    Graph<Point, DefaultWeightedEdge> graph = new DefaultDirectedWeightedGraph<>(DefaultWeightedEdge.class);
+
+    for (Line line : lines) {
+      graph.addVertex(line.getA());
+      graph.addVertex(line.getB());
+    }
+
+    return null;
   }
 }

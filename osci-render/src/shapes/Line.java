@@ -45,6 +45,14 @@ public class Line extends Shape {
     return lines.stream().map(l -> l.scale(factor)).collect(Collectors.toList());
   }
 
+  public Point getA() {
+    return a;
+  }
+
+  public Point getB() {
+    return b;
+  }
+
   private double getX1() {
     return a.getX();
   }

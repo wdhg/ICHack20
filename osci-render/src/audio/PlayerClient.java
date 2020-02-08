@@ -24,7 +24,6 @@ public class PlayerClient {
     AudioRenderer.addShapes(Shapes.generateSquare(0.0485, -0.0485, 0.631));
     AudioRenderer.addShapes(Shapes.generateSquare(0.369, -0.369, 0.631));
 
-
     player.start();
 
     while (true) {

@@ -14,6 +14,7 @@ public class AudioRenderer extends Thread {
   private static int currentShape;
   private static int framesDrawn;
   private static double FACTOR;
+  private static boolean frameUpdated;
 
   private boolean stopped;
 
@@ -29,6 +30,10 @@ public class AudioRenderer extends Thread {
 
   static void render(XtStream stream, Object input, Object output, int frames,
                      double time, long position, boolean timeValid, long error, Object user) {
+
+    if (frameUpdated) {
+
+    }
 
     for (int f = 0; f < frames; f++) {
       Shape shape = getCurrentShape();
