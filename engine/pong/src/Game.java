@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.ActionEvent;
@@ -6,7 +7,7 @@ import java.awt.event.ActionListener;
 import static com.sun.java.accessibility.util.AWTEventMonitor.addKeyListener;
 
 
-public class Game implements KeyListener{
+public class Game implements KeyListener, ActionListener {
 
     private int width, height, scorePlayer1, scorePlayer2;
     private Ball ball;
@@ -44,5 +45,10 @@ public class Game implements KeyListener{
     @Override
     public void keyReleased(KeyEvent keyEvent) {
 
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent actionEvent) {
+        
     }
 }
