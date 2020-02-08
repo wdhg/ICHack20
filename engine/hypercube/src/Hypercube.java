@@ -25,13 +25,11 @@ public class Hypercube {
     }
   }
 
-  // project w into x,y,z space
-  public List<Vector3> projectTo3D() {
-    return new ArrayList<>();
+  public List<Vector4> getVertices() {
+    return vertices;
   }
 
-  // project z into x,y plane
-  public List<Vector2> projectTo2D() {
-    return new ArrayList<>();
+  public List<Integer> getEdgeData() {
+    return edgeData;
   }
 }
