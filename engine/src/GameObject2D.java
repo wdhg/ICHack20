@@ -13,6 +13,7 @@ public class GameObject2D {
 
   }
 
+  // in degrees clockwise (negative for anticlockwise
   public void rotate(double delta) {
 
   }
