@@ -15,8 +15,7 @@ public class PlayerClient {
     AudioRenderer player = new AudioRenderer(SAMPLE_RATE, 440);
 
     List<Shape> squares = new ArrayList<>();
-    
-    
+
     squares.addAll(Shapes.generateSquare(0.0485, 1.0085, 0.32));
     squares.addAll(Shapes.generateSquare(0.3685, 0.6885, 0.32));
     squares.addAll(Shapes.generateSquare(0.0485, 0.3685, 0.32));

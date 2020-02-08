@@ -2,13 +2,16 @@ package shapes;
 
 import org.jgrapht.Graph;
 import org.jgrapht.GraphPath;
+import org.jgrapht.alg.connectivity.ConnectivityInspector;
 import org.jgrapht.alg.cycle.ChinesePostman;
+import org.jgrapht.graph.AsSubgraph;
 import org.jgrapht.graph.DefaultDirectedWeightedGraph;
 import org.jgrapht.graph.DefaultWeightedEdge;
 
 import javax.net.ssl.SSLHandshakeException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class Shapes {
   public static List<Shape> generateSquare(double x, double y, double sideLength) {
@@ -36,20 +39,27 @@ public class Shapes {
       graph.setEdgeWeight(edge, line.length * line.weight);
     }
 
-    ChinesePostman<Point, DefaultWeightedEdge> cp = new ChinesePostman<>();
-    GraphPath<Point, DefaultWeightedEdge> edges = cp.getCPPSolution(graph);
+    ConnectivityInspector<Point, DefaultWeightedEdge> inspector = new ConnectivityInspector<>(graph);
 
     List<Shape> sortedLines = new ArrayList<>();
-    Point prevPoint = edges.getStartVertex();
-    Point firstPoint = edges.getStartVertex();
-    List<Point> path = edges.getVertexList();
 
-    for (int i = 1; i < edges.getLength(); i++) {
-      sortedLines.add(new Line(prevPoint, path.get(i)));
-      prevPoint = path.get(i);
+    for (Set<Point> vertices : inspector.connectedSets()) {
+      AsSubgraph<Point, DefaultWeightedEdge> subgraph = new AsSubgraph<>(graph, vertices);
+
+      ChinesePostman<Point, DefaultWeightedEdge> cp = new ChinesePostman<>();
+      GraphPath<Point, DefaultWeightedEdge> edges = cp.getCPPSolution(subgraph);
+
+      Point prevPoint = edges.getStartVertex();
+      Point firstPoint = edges.getStartVertex();
+      List<Point> path = edges.getVertexList();
+
+      for (int i = 1; i < edges.getLength(); i++) {
+        sortedLines.add(new Line(prevPoint, path.get(i)));
+        prevPoint = path.get(i);
+      }
+
+      sortedLines.add(new Line(prevPoint, firstPoint));
     }
-
-    sortedLines.add(new Line(prevPoint, firstPoint));
 
     return sortedLines;
   }
