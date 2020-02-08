@@ -2,10 +2,19 @@ package audio;
 
 import com.xtaudio.xt.*;
 
-public class AudioRenderer {
-  static double phase = 0.0;
-  static final double FREQUENCY = 660.0;
-  static final XtFormat FORMAT = new XtFormat(new XtMix(192000, XtSample.FLOAT32), 0, 0, 2, 0);
+public class AudioRenderer extends Thread {
+  private static double phase;
+  private static double FREQUENCY;
+  private static XtFormat FORMAT;
+
+  private boolean stopped;
+
+  public AudioRenderer(int sampleRate, double frequency) {
+    AudioRenderer.FORMAT = new XtFormat(new XtMix(sampleRate, XtSample.FLOAT32), 0, 0, 2, 0);
+    AudioRenderer.phase = 0.0;
+    AudioRenderer.FREQUENCY = frequency;
+    stopped = false;
+  }
 
   static void render(XtStream stream, Object input, Object output, int frames,
                      double time, long position, boolean timeValid, long error, Object user) {
@@ -23,8 +32,7 @@ public class AudioRenderer {
     }
   }
 
-  public static void main(String[] args) throws Exception {
-
+  public void start() {
     try (XtAudio audio = new XtAudio(null, null, null, null)) {
       XtService service = XtAudio.getServiceBySetup(XtSetup.CONSUMER_AUDIO);
       try (XtDevice device = service.openDefaultDevice(true)) {
@@ -34,8 +42,9 @@ public class AudioRenderer {
           try (XtStream stream = device.openStream(FORMAT, true, false,
             buffer.current, AudioRenderer::render, null, null)) {
             stream.start();
-            Thread.sleep(100000);
-            stream.stop();
+            while (true) {
+
+            }
           }
         }
       }
