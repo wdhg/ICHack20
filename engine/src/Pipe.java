@@ -8,7 +8,7 @@ public class Pipe {
     Pipe() throws SocketException {
         this.conn = new UDPConn();
     }
-    public void send(List<Vector2> vertices, int[] connections) throws IOException {
+    public void send(List<Vector2> vertices, List<Integer> connections) throws IOException {
         String json = Encoder.encode(vertices, connections);
         conn.send(json);
     }
