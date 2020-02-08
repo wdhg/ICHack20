@@ -1,4 +1,7 @@
 public class GameObject2D {
+
+  private static final double MAX_ROTATION = 360;
+
   private Vector2 position;
   private double rotation;
   private Shape shape;
@@ -31,7 +34,7 @@ public class GameObject2D {
 
   // in degrees clockwise (negative for anticlockwise
   public void rotate(double degrees) {
-
+    this.setRotation((this.getRotation() + degrees) % MAX_ROTATION);
   }
 
   public boolean collidesWith(GameObject2D other) {
