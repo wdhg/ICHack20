@@ -28,6 +28,10 @@ public class GameObject2D {
     return this.rotation;
   }
 
+  public Shape getShape() {
+    return this.shape;
+  }
+
   public void move(Vector2 delta) {
     this.setPosition(this.getPosition().add(delta));
   }
@@ -38,6 +42,6 @@ public class GameObject2D {
   }
 
   public boolean collidesWith(GameObject2D other) {
-    return false;
+    return this.getShape().intersects(other.getShape());
   }
 }
