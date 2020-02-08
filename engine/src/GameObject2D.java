@@ -9,6 +9,22 @@ public class GameObject2D {
     this.shape = shape;
   }
 
+  public void setPosition(Vector2 position) {
+    this.position = position;
+  }
+
+  public Vector2 getPosition() {
+    return this.position;
+  }
+
+  public void setRotation(double rotation) {
+    this.rotation = rotation;
+  }
+
+  public double getRotation() {
+    return this.rotation;
+  }
+
   public void move(Vector2 delta) {
 
   }
