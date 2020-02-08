@@ -27,6 +27,6 @@ public class Encoder {
 
         JsonObject root = new JsonObject();
         root.add("frame", frame);
-        return root.getAsString();
+        return root.toString();
     }
 }

@@ -5,6 +5,7 @@ import shapes.Circle;
 import shapes.Shape;
 import shapes.Shapes;
 
+import java.io.IOException;
 import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
 public class PlayerClient {
   private static int SAMPLE_RATE = 192000;
 
-  public static void main(String[] args) throws SocketException {
+  public static void main(String[] args) throws IOException {
     AudioRenderer player = new AudioRenderer(SAMPLE_RATE, 440);
     Pipe pipe = new Pipe();
 
@@ -39,7 +40,7 @@ public class PlayerClient {
     player.start();
 
     while (true) {
-
+      AudioRenderer.updateFrame(pipe.getFrame());
     }
   }
 }

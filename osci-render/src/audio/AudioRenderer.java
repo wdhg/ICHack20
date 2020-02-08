@@ -1,6 +1,7 @@
 package audio;
 
 import com.xtaudio.xt.*;
+import shapes.Point;
 import shapes.Shape;
 
 import java.util.ArrayList;
@@ -43,8 +44,6 @@ public class AudioRenderer extends Thread {
       double framesToDraw = shape.getWeight() * shape.getLength();
       double drawingProgress = framesDrawn / framesToDraw;
 
-
-
       for (int c = 0; c < FORMAT.outputs; c++) {
         ((float[]) output)[f * FORMAT.outputs] = (float) shape.nextX(drawingProgress);
         ((float[]) output)[f * FORMAT.outputs + 1] = (float) shape.nextY(drawingProgress);
@@ -71,7 +70,16 @@ public class AudioRenderer extends Thread {
     shapes.addAll(newShapes);
   }
 
+  public static void updateFrame(List<Shape> frame) {
+    shapes = new ArrayList<>();
+    shapes.addAll(frame);
+  }
+
   private static Shape getCurrentShape() {
+    if (shapes.size() == 0) {
+      return new Point(0, 0);
+    }
+
     if (currentShape >= shapes.size()) {
       currentShape -= shapes.size();
     }
@@ -79,7 +87,8 @@ public class AudioRenderer extends Thread {
     return shapes.get(currentShape);
   }
 
-  public void start() {
+  @Override
+  public void run() {
     try (XtAudio audio = new XtAudio(null, null, null, null)) {
       XtService service = XtAudio.getServiceBySetup(XtSetup.CONSUMER_AUDIO);
       try (XtDevice device = service.openDefaultDevice(true)) {
@@ -89,9 +98,10 @@ public class AudioRenderer extends Thread {
           try (XtStream stream = device.openStream(FORMAT, true, false,
             buffer.current, AudioRenderer::render, null, null)) {
             stream.start();
-            while (true) {
-
+            while (!stopped) {
+              Thread.onSpinWait();
             }
+            stream.stop();
           }
         }
       }
