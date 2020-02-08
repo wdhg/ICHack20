@@ -49,4 +49,10 @@
     </task>
     <servers />
   </component>
+  <component name="WindowStateProjectService">
+    <state x="439" y="415" width="350" height="208" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1581170003802">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="439" y="415" width="350" height="208" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1581170003802" />
+  </component>
 </project>
