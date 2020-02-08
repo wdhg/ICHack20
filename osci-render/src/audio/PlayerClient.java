@@ -15,7 +15,6 @@ public class PlayerClient {
     AudioRenderer.addShapes(Shapes.generateSquare(70, 103, 33));
     AudioRenderer.scale(1d / 103d);
 
-
     player.start();
 
     while (true) {
