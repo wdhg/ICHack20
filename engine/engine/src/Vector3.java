@@ -1,0 +1,2 @@
+public class Vector3 {
+}
