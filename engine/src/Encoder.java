@@ -3,11 +3,11 @@ import com.google.gson.*;
 import java.util.List;
 
 public class Encoder {
-    public static String encode(List<Vector2> vertices, int[] connections){
+    public static String encode(List<Vector2> vertices, List<Integer> connections){
         JsonArray lines = new JsonArray();
-        for (int i = 0; i < connections.length; i+=2) {
-            Vector2 start = vertices.get(connections[i]);
-            Vector2 end = vertices.get(connections[i+1]);
+        for (int i = 0; i < connections.size(); i+=2) {
+            Vector2 start = vertices.get(connections.get(i));
+            Vector2 end = vertices.get(connections.get(i+1));
             double x1 = start.getX();
             double y1 = start.getY();
             double x2 = end.getX();
