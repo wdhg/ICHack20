@@ -9,11 +9,12 @@ import java.util.List;
 public class Pipe {
     private int defaultPort = 57480;
     private UDPConn conn;
-    Pipe() throws SocketException{
+
+    public Pipe() throws SocketException{
         this.conn = new UDPConn(defaultPort);
     }
 
-    Pipe(int port) throws SocketException {
+    public Pipe(int port) throws SocketException {
         this.conn = new UDPConn(port);
     }
 
