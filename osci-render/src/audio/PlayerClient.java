@@ -1,7 +1,6 @@
 package audio;
 
 import shapes.Circle;
-import shapes.Line;
 import shapes.Shape;
 import shapes.Shapes;
 

@@ -8,7 +8,6 @@ import org.jgrapht.graph.AsSubgraph;
 import org.jgrapht.graph.DefaultDirectedWeightedGraph;
 import org.jgrapht.graph.DefaultWeightedEdge;
 
-import javax.net.ssl.SSLHandshakeException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
