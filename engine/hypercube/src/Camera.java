@@ -19,6 +19,9 @@ public class Camera extends Renderer{
 
   public void draw(Hypercube hypercube) {
     List<Vector2> vertices = new ArrayList<>();
+
+    d += 0.1;
+
     for(Vector4 vertex : hypercube.getVertices()) {
       vertices.add(this.project(vertex));
     }

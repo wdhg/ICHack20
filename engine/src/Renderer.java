@@ -8,7 +8,7 @@ public abstract class Renderer {
     try {
       this.pipe = new Pipe();
     } catch (Exception e) {
-      System.err.println("Pipe cannot connect");
+      System.err.println(e);
     }
   }
 
@@ -16,7 +16,7 @@ public abstract class Renderer {
     try {
       this.pipe.send(vertices, connections);
     } catch (Exception e) {
-      System.err.println("Cannot send frame");
+      System.err.println(e);
     }
   }
 }
