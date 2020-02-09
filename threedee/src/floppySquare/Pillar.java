@@ -22,20 +22,33 @@ public class Pillar extends GameObject {
         this.centreX = 1;
     }
 
+    public Point getTopLeft(){
+        return new Point(centreX - width / 2, isTop ? 1: height-1);
+    }
+
+    public Point getTopRight(){
+        return new Point(centreX + width / 2, isTop ? 1: height-1);
+    }
+
+    public Point getBottomLeft(){
+        return new Point(centreX - width / 2, isTop ? 1-height: -1);
+    }
+
+    public Point getBottomRight(){
+        return new Point(centreX + width / 2, isTop ? 1-height: -1);
+    }
+
+
 
     @Override
     public List<Plottable> plot() {
-        Point topLeft = new Point(centreX - width / 2, isTop ? 1: height-1);
-        Point topRight = new Point(centreX + width / 2, isTop ? 1: height-1);
-        Point bottomLeft = new Point(centreX - width / 2, isTop ? 1-height: -1);
-        Point bottomRight = new Point(centreX + width / 2, isTop ? 1-height: -1);
-        Line left = new Line(topLeft, bottomLeft);
-        Line right = new Line(topRight, bottomRight);
+        Line left = new Line(getTopLeft(), getBottomLeft());
+        Line right = new Line(getTopRight(), getBottomRight());
         List<Plottable> ret =  new ArrayList<>(Arrays.asList(left, right));
         if (isTop){
-            ret.add(new Line(bottomLeft, bottomRight));
+            ret.add(new Line(getBottomLeft(), getBottomRight()));
         } else {
-            ret.add(new Line(topRight, topLeft));
+            ret.add(new Line(getTopRight(), getTopLeft()));
         }
 
         return ret;
@@ -49,5 +62,27 @@ public class Pillar extends GameObject {
     @Override
     public boolean isOut() {
         return centreX + width < -0.8;
+    }
+
+    @Override
+    public String type() {
+        return "Pillar";
+    }
+
+    public boolean collided(Square sq){
+        if (sq.getTopLeft().isRightOf(this.getTopRight())) {
+            return false;
+        }
+        if (sq.getTopRight().isLeftOf(this.getTopLeft())) {
+            return false;
+        }
+        if (sq.getBottomRight().isAbove(this.getTopRight())) {
+            return false;
+        }
+        if (sq.getTopRight().isBelow(this.getBottomRight())) {
+            return false;
+        }
+        return true;
+
     }
 }

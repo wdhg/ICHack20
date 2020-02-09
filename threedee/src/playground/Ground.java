@@ -82,6 +82,11 @@ public class Ground extends GameObject {
     }
 
     @Override
+    public String type() {
+        return null;
+    }
+
+    @Override
     public List<Plottable> plot() {
         List<Plottable> ret = new ArrayList<>();
         ret.addAll(horizontals);

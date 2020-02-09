@@ -10,11 +10,13 @@ import java.util.Random;
 
 public class FloppySquare extends Game {
     private List<GameObject> world;
+    private List<Pillar> pillars;
     private Square square;
     private Random rng;
 
     FloppySquare(){
         rng = new Random();
+        pillars = new ArrayList<>();
         world = new ArrayList<>();
         this.square = new Square();
         world.add(this.square);
@@ -27,13 +29,28 @@ public class FloppySquare extends Game {
     @Override
     public void update(double deltaTime) {
         for (int i = 0; i < world.size(); i++) {
-            world.get(i).update(deltaTime);
-            if (world.get(i).isOut()){
+            GameObject gobj = world.get(i);
+            gobj.update(deltaTime);
+            if (gobj.isOut()){
                 world.remove(i);
+                if (gobj.type().equals("Pillar")){
+                    pillars.remove(gobj);
+                }
             }
         }
+        if (square.isOut()){
+            System.exit(-1);
+        }
+        for (Pillar p:pillars){
+            if (p.collided(square)){
+                System.exit(-1);
+            }
+        }
+
         if (rng.nextInt(40) == 1){
-            world.add(new Pillar(rng.nextDouble() * 0.6, rng.nextBoolean()));
+            Pillar p = new Pillar(rng.nextDouble() * 0.6, rng.nextBoolean());
+            world.add(p);
+            pillars.add(p);
         }
     }
 

@@ -5,6 +5,7 @@ import engine.Line;
 import engine.Plottable;
 import engine.Point;
 
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,16 +26,28 @@ public class Square extends GameObject {
         v+=0.8;
     }
 
+    public Point getTopLeft(){
+        return new Point(centreX - sideLength / 2, centreY + sideLength / 2);
+    }
+
+    public Point getTopRight(){
+        return new Point(centreX + sideLength / 2, centreY + sideLength / 2);
+    }
+
+    public Point getBottomLeft(){
+        return new Point(centreX - sideLength / 2, centreY - sideLength / 2);
+    }
+
+    public Point getBottomRight(){
+        return new Point(centreX + sideLength / 2, centreY - sideLength / 2);
+    }
+
     @Override
     public List<Plottable> plot() {
-        Point topLeft = new Point(centreX - sideLength / 2, centreY + sideLength / 2);
-        Point topRight = new Point(centreX + sideLength / 2, centreY + sideLength / 2);
-        Point bottomLeft = new Point(centreX - sideLength / 2, centreY - sideLength / 2);
-        Point bottomRight = new Point(centreX + sideLength / 2, centreY - sideLength / 2);
-        Line top = new Line(topLeft, topRight);
-        Line left = new Line(topLeft, bottomLeft);
-        Line right = new Line(topRight, bottomRight);
-        Line bottom = new Line(bottomLeft, bottomRight);
+        Line top = new Line(getTopLeft(), getTopRight());
+        Line left = new Line(getTopLeft(), getBottomLeft());
+        Line right = new Line(getTopRight(), getBottomRight());
+        Line bottom = new Line(getBottomLeft(), getBottomRight());
         return new ArrayList<>(Arrays.asList(top, left, right, bottom));
     }
 
@@ -48,5 +61,10 @@ public class Square extends GameObject {
     @Override
     public boolean isOut(){
         return centreY < -1;
+    }
+
+    @Override
+    public String type() {
+        return "Square";
     }
 }
