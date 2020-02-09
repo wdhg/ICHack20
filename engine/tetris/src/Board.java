@@ -40,8 +40,8 @@ public class Board extends Renderer {
     for (int i = 0; i < BOARD_HEIGHT; i++) {
       for (int j = 0; j < BOARD_WIDTH; j++) {
         if (board[i][j] != Tetrominoe.NoShape) {
-          double topLeftX = ((double) i - 5) / 5;
-          double topLeftY = ((double) j - 5) / 5;
+          double topLeftX = ((double) j - 5) / 5;
+          double topLeftY = - ((double) i - 5) / 5;
           vertices.add(new Vector2(topLeftX, topLeftY));
           vertices.add(new Vector2(topLeftX + 0.1, topLeftY));
           vertices.add(new Vector2(topLeftX - 0.1, topLeftY - 0.1));
