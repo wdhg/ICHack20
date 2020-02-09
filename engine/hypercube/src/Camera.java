@@ -20,7 +20,7 @@ public class Camera extends Renderer{
   public void draw(Hypercube hypercube) {
     List<Vector2> vertices = new ArrayList<>();
     for(Vector4 vertex : hypercube.getVertices()) {
-      vertices.add(this.project(vertex));
+      vertices.add(this.project(vertex, 2));
     }
     this.render(
       vertices,
@@ -39,8 +39,13 @@ public class Camera extends Renderer{
     );
   }
 
-  private Vector2 project(Vector4 vertex) {
-    Vector3 projected3D = new Vector3();
+  private Vector2 project(Vector4 vertex, double distance) {
+    double projection = 1 / distance - vertex.getW();
+    Vector3 projected3D = new Vector3(
+      projection * vertex.getX(),
+      projection * vertex.getY(),
+      projection * vertex.getZ()
+    );
     return this.project(projected3D);
   }
 
