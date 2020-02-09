@@ -1,21 +1,15 @@
-import static com.sun.java.accessibility.util.AWTEventMonitor.addKeyListener;
-
 import java.util.ArrayList;
+import java.util.Scanner;
 import javax.swing.Timer;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 public class Board extends Renderer {
 
   private Tetrominoe[][] board;
   private final int BOARD_WIDTH = 10;
   private final int BOARD_HEIGHT = 10;
-  private final int PERIOD_INTERVAL = 1000;
-  private Timer timer;
   private boolean isFallingFinished = false;
   private boolean isPaused = false;
+  private boolean gameOver = false;
   private int numLinesRemoved = 0;
   private TetrisShape curPiece;
   private ArrayList<Vector2> vertices;
@@ -25,7 +19,6 @@ public class Board extends Renderer {
     this.board = new Tetrominoe[BOARD_HEIGHT][BOARD_WIDTH];
     this.curPiece = new TetrisShape();
     initBoard();
-    addKeyListener(new TAdapter());
   }
 
   private void initBoard() {
@@ -44,7 +37,7 @@ public class Board extends Renderer {
       for (int j = 0; j < BOARD_WIDTH; j++) {
         if (board[i][j] != Tetrominoe.NoShape) {
           double topLeftX = ((double) j - 5) / 5;
-          double topLeftY = - ((double) i - 5) / 5;
+          double topLeftY = -((double) i - 5) / 5;
           vertices.add(new Vector2(topLeftX, topLeftY));
           vertices.add(new Vector2(topLeftX + 0.2, topLeftY));
           vertices.add(new Vector2(topLeftX + 0.2, topLeftY - 0.2));
@@ -74,14 +67,16 @@ public class Board extends Renderer {
   }
 
 
-  public void start() {
+  public void start() throws InterruptedException {
     curPiece = new TetrisShape();
     for (int i = 0; i < 4; i++) {
       board[curPiece.ys[i]][curPiece.xs[i]] = curPiece.getShape();
     }
     createVerticesAndEdges();
-    timer = new Timer(PERIOD_INTERVAL, new GameCycle());
-    timer.start();
+    while (!gameOver){
+      Thread.sleep(1000);
+      update();
+    }
   }
 
   private void pause() {
@@ -161,62 +156,41 @@ public class Board extends Renderer {
     }
   }
 
-
-  private class GameCycle implements ActionListener {
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-      doGameCycle();
-    }
-  }
-
-  private void doGameCycle() {
-    update();
-  }
-
   private void update() {
-    if (isPaused) {
-      return;
-    }
-    if (isFallingFinished) {
-      isFallingFinished = false;
-      newPiece();
-    } else {
-      oneLineDown();
-    }
-    createVerticesAndEdges();
-  }
-
-  class TAdapter extends KeyAdapter {
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-      if (curPiece.getShape().equals(Tetrominoe.NoShape)) {
-        return;
-      }
-
-      int keycode = e.getKeyCode();
-
-      switch (keycode) {
-        case KeyEvent.VK_P:
+    Scanner scn = new Scanner(System.in);
+    char input = scn.nextLine().charAt(0);
+    if (!curPiece.getShape().equals(Tetrominoe.NoShape)) {
+      switch (input) {
+        case 'p':
           pause();
           break;
-        case KeyEvent.VK_LEFT:
+        case 'a':
           tryMove(curPiece, -1, 0);
           break;
-        case KeyEvent.VK_RIGHT:
+        case 'd':
           tryMove(curPiece, 1, 0);
           break;
-        case KeyEvent.VK_DOWN:
+        case 's':
           dropDown();
           break;
-        case KeyEvent.VK_Q:
+        case 'q':
           tryMove(curPiece.rotateLeft(), curPiece.xs[0], curPiece.ys[0]);
           break;
-        case KeyEvent.VK_E:
+        case 'e':
           tryMove(curPiece.rotateRight(), curPiece.xs[0], curPiece.ys[0]);
           break;
       }
+
+      if (isPaused) {
+        return;
+      }
+      if (isFallingFinished) {
+        isFallingFinished = false;
+        newPiece();
+      } else {
+        oneLineDown();
+      }
+      createVerticesAndEdges();
     }
   }
 }
