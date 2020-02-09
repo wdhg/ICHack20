@@ -8,17 +8,16 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Game extends JPanel implements ActionListener, KeyListener {
-    private Main game;
+    private final static int WIDTH = 10, HEIGHT = 10;
     private Ball ball;
     private Paddle player1, player2;
-    private int score1, score2;
+    private double score1, score2;
 
-    public Game(Main game) {
+    public Game() {
         setBackground(Color.WHITE);
-        this.game = game;
-        ball = new Ball(game);
-        player1 = new Paddle(game, KeyEvent.VK_UP, KeyEvent.VK_DOWN, game.getWidth() - 36);
-        player2 = new Paddle(game, KeyEvent.VK_W, KeyEvent.VK_S, 20);
+        ball = new Ball(this);
+        player1 = new Paddle(this, KeyEvent.VK_UP, KeyEvent.VK_DOWN, 0.7);
+        player2 = new Paddle(this, KeyEvent.VK_W, KeyEvent.VK_S, 0.2);
         Timer timer = new Timer(5, this);
         timer.start();
         addKeyListener(this);
@@ -39,7 +38,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
             score2++;
     }
 
-    public int getScore(int playerNo) {
+    public double getScore(int playerNo) {
         if (playerNo == 1)
             return score1;
         else
@@ -69,15 +68,6 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 
     public void keyTyped(KeyEvent e) {
         ;
-    }
-
-    @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.drawString(game.getPanel().getScore(1) + " : " + game.getPanel().getScore(2), game.getWidth() / 2, 10);
-        ball.paint(g);
-        player1.paint(g);
-        player2.paint(g);
     }
 
     public Vector2 getBallPosition() {

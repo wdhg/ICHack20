@@ -1,22 +1,22 @@
 import java.awt.Graphics;
-import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
 
 public class Paddle {
-    public static final int WIDTH = 10, HEIGHT = 60;
-    private Main game;
+    public static final double WIDTH = 0.1, HEIGHT = 0.6;
+    private Game game;
     private int up, down;
-    private int x;
-    private int y, ya;
-    private Rectangle paddle;
+    private double x;
+    private double y, ya;
+    private Rectangle2D.Double paddle;
     private Vector2 position;
 
-    public Paddle(Main game, int up, int down, int x) {
+    public Paddle(Game game, int up, int down, double x) {
         this.game = game;
         this.x = x;
-        y = game.getHeight() / 2;
+        y = 0.5 / 2f;
         this.up = up;
         this.down = down;
-        paddle = new Rectangle(x, y, WIDTH, HEIGHT);
+        paddle = new Rectangle2D.Double(x, y, WIDTH, HEIGHT);
         position = new Vector2(x, y);
     }
 
@@ -44,12 +44,8 @@ public class Paddle {
             ya = 0;
     }
 
-    public Rectangle getBounds() {
-        return new Rectangle(x, y, WIDTH, HEIGHT);
-    }
-
-    public void paint(Graphics g) {
-        g.fillRect(x, y, WIDTH, HEIGHT);
+    public Rectangle2D.Double getBounds() {
+        return new Rectangle2D.Double(x, y, WIDTH, HEIGHT);
     }
 
     public Vector2 getPosition() {
