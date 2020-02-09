@@ -68,6 +68,11 @@ public class Mesh {
     for(int i = 1; i < datas.length; i++) {
       indices.add(Integer.parseInt(datas[i].split("/")[0]));
     }
+    List<Integer> edgeData = new ArrayList<>();
+    for(int i = 0; i < edgeData.size(); i++) {
+      edgeData.add(i);
+      edgeData.add((i + 1) % (edgeData.size() - 1));
+    }
     return indices;
   }
 }
