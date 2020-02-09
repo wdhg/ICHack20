@@ -14,11 +14,15 @@ public class Board extends Renderer {
   private TetrisShape curPiece;
   private ArrayList<Vector2> vertices;
   private ArrayList<Integer> edges;
+  private Scanner scn;
 
   public Board() {
     this.board = new Tetrominoe[BOARD_HEIGHT][BOARD_WIDTH];
     this.curPiece = new TetrisShape();
     initBoard();
+    this.scn = new Scanner(System.in);
+    this.vertices = new ArrayList<>();
+    this.edges = new ArrayList<>();
   }
 
   private void initBoard() {
@@ -73,8 +77,7 @@ public class Board extends Renderer {
       board[curPiece.ys[i]][curPiece.xs[i]] = curPiece.getShape();
     }
     createVerticesAndEdges();
-    while (!gameOver){
-      Thread.sleep(1000);
+    while (!gameOver) {
       update();
     }
   }
@@ -87,6 +90,8 @@ public class Board extends Renderer {
     while (maxY() < BOARD_HEIGHT) {
       if (!tryMove(curPiece, 0, 1)) {
         break;
+      } else {
+        tryMove(curPiece, 0, 1);
       }
     }
     pieceDropped();
@@ -95,6 +100,8 @@ public class Board extends Renderer {
   private void oneLineDown() {
     if (!tryMove(curPiece, 0, 1)) {
       pieceDropped();
+    } else {
+      tryMove(curPiece, 0, 1);
     }
   }
 
@@ -111,11 +118,9 @@ public class Board extends Renderer {
   private boolean tryMove(TetrisShape newPiece, int deltaX, int deltaY) {
     for (int i = 0; i < 4; i++) {
       int x = deltaX + newPiece.xs[i];
-      int y = deltaY - newPiece.ys[i];
-      if (x < 0 || x >= BOARD_WIDTH || y < 0 || y >= BOARD_HEIGHT) {
-        return false;
-      }
-      if (board[y][x] != Tetrominoe.NoShape) {
+      int y = deltaY + newPiece.ys[i];
+      if (x < 0 || x >= BOARD_WIDTH || y < 0 || y >= BOARD_HEIGHT
+          || board[y][x] != Tetrominoe.NoShape) {
         return false;
       }
     }
@@ -157,40 +162,37 @@ public class Board extends Renderer {
   }
 
   private void update() {
-    Scanner scn = new Scanner(System.in);
-    char input = scn.nextLine().charAt(0);
-    if (!curPiece.getShape().equals(Tetrominoe.NoShape)) {
-      switch (input) {
-        case 'p':
-          pause();
-          break;
-        case 'a':
-          tryMove(curPiece, -1, 0);
-          break;
-        case 'd':
-          tryMove(curPiece, 1, 0);
-          break;
-        case 's':
-          dropDown();
-          break;
-        case 'q':
-          tryMove(curPiece.rotateLeft(), curPiece.xs[0], curPiece.ys[0]);
-          break;
-        case 'e':
-          tryMove(curPiece.rotateRight(), curPiece.xs[0], curPiece.ys[0]);
-          break;
-      }
-
-      if (isPaused) {
-        return;
-      }
-      if (isFallingFinished) {
-        isFallingFinished = false;
-        newPiece();
-      } else {
-        oneLineDown();
-      }
-      createVerticesAndEdges();
+    String input = scn.nextLine();
+    switch (input) {
+      case "p":
+        pause();
+        break;
+      case "a":
+        tryMove(curPiece, -1, 0);
+        break;
+      case "d":
+        tryMove(curPiece, 1, 0);
+        break;
+      case "s":
+        dropDown();
+        break;
+      case "q":
+        tryMove(curPiece.rotateLeft(), curPiece.xs[0], curPiece.ys[0]);
+        break;
+      case "e":
+        tryMove(curPiece.rotateRight(), curPiece.xs[0], curPiece.ys[0]);
+        break;
     }
+
+    if (isPaused) {
+      return;
+    }
+    if (isFallingFinished) {
+      isFallingFinished = false;
+      newPiece();
+    } else {
+      oneLineDown();
+    }
+    createVerticesAndEdges();
   }
 }
