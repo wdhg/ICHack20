@@ -21,6 +21,7 @@ public class Pipe {
     // will block
     public List<Shape> getFrame() throws IOException {
         String json = conn.getData();
-        return Decoder.decodeFrame(json);
+        List<Shape> decoded = Decoder.decodeFrame(json);
+        return decoded;
     }
 }

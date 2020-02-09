@@ -17,9 +17,7 @@ public class UDPConn {
     // blocks
     String getData() throws IOException {
         DatagramPacket packet = new DatagramPacket(buf,bufLen);
-        System.out.println("blocking");
         this.socket.receive(packet);
-        System.out.println(new String(packet.getData()));
         return new String(packet.getData());
     }
 
