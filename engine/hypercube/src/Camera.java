@@ -28,6 +28,17 @@ public class Camera extends Renderer{
     );
   }
 
+  public void draw(Cube cube) {
+    List<Vector2> vertices = new ArrayList<>();
+    for(Vector3 vertex : cube.getVertices()) {
+      vertices.add(this.project(vertex));
+    }
+    this.render(
+      vertices,
+      cube.getEdgeData()
+    );
+  }
+
   private Vector2 project(Vector4 vertex) {
     Vector3 projected3D = new Vector3();
     return this.project(projected3D);

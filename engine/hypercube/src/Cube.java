@@ -41,4 +41,8 @@ public class Cube {
     }
     return vertices;
   }
+
+  public List<Integer> getEdgeData() {
+    return edgeData;
+  }
 }
