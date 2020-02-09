@@ -34,9 +34,9 @@ public class Cube {
     List<Vector3> vertices = new ArrayList<>();
     for(Vector3 vertex : this.vertices) {
       vertices.add(new Vector3(
-        vertex.getZ(),
-        Math.cos(rotation) * vertex.getX() - Math.sin(rotation) * vertex.getY(),
-        Math.sin(rotation) * vertex.getX() + Math.cos(rotation) * vertex.getY()
+        Math.cos(rotation) * vertex.getX() + Math.sin(rotation) * vertex.getZ(),
+        vertex.getY(),
+        -Math.sin(rotation) * vertex.getX() + Math.cos(rotation) * vertex.getZ()
       ).add(this.position));
     }
     return vertices;
