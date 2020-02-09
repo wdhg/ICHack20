@@ -28,14 +28,14 @@ public class Camera extends Renderer{
     );
   }
 
-  public void draw(Cube cube) {
+  public void draw(WorldObject wo) {
     List<Vector2> vertices = new ArrayList<>();
-    for(Vector3 vertex : cube.getVertices()) {
+    for(Vector3 vertex : wo.getVertices()) {
       vertices.add(this.project(vertex));
     }
     this.render(
       vertices,
-      cube.getEdgeData()
+      wo.getEdgeData()
     );
   }
 
