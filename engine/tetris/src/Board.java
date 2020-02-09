@@ -77,6 +77,11 @@ public class Board extends Renderer {
       board[curPiece.ys[i]][curPiece.xs[i]] = curPiece.getShape();
     }
     createVerticesAndEdges();
+    for (int i = 0; i < 10; i++){
+      tryMove(curPiece, 0, 1);
+      createVerticesAndEdges();
+      render(vertices, edges);
+    }
     while (!gameOver) {
       update();
     }

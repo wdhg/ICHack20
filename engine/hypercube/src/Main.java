@@ -2,7 +2,7 @@ public class Main {
   public static void main(String[] args) throws InterruptedException {
     Camera camera = new Camera();
     // Hypercube hypercube = new Hypercube();
-    WorldObject cube = new WorldObject("resources/boomer.obj", new Vector3(0,0,2), new Vector3());
+    WorldObject cube = new WorldObject("resources/machine.obj", new Vector3(0,0,0), new Vector3());
     while(true) {
       camera.draw(cube);
       cube.rotate(new Vector3(
@@ -10,7 +10,7 @@ public class Main {
         Math.PI / 100,
         0
       ));
-      Thread.sleep(1000/60);
+      Thread.sleep(1000/20);
     }
   }
 }

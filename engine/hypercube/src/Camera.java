@@ -13,7 +13,7 @@ public class Camera extends Renderer{
 
   public Camera() {
     this.focalLength = 0.6;
-    this.position = new Vector3(0,0,-3);
+    this.position = new Vector3(0,0,-2);
     this.fov = 60;
   }
 

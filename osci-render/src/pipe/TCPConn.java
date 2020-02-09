@@ -25,7 +25,7 @@ public class TCPConn {
     int len = ((lenB[0] & 0xFF) << 24) + ((lenB[1] & 0xFF) << 16) + ((lenB[2] & 0xFF) << 8) + (lenB[3] & 0xFF);
 
     int pointer = 0;
-    for (; pointer < len; ) {
+    for (; pointer < len;) {
       int red = input.read(buf, pointer, len - pointer);
       pointer += red;
     }
