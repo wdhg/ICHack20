@@ -12,7 +12,7 @@ public class Board extends Renderer {
   private Tetrominoe[][] board;
   private final int BOARD_WIDTH = 10;
   private final int BOARD_HEIGHT = 10;
-  private final int PERIOD_INTERVAL = 300;
+  private final int PERIOD_INTERVAL = 1000;
   private Timer timer;
   private boolean isFallingFinished = false;
   private boolean isPaused = false;
@@ -30,7 +30,7 @@ public class Board extends Renderer {
 
   private void initBoard() {
     for (int i = 0; i < board.length; i++) {
-      for (int j = 0; j < board.length; j++) {
+      for (int j = 0; j < board[i].length; j++) {
         board[i][j] = Tetrominoe.NoShape;
       }
     }
@@ -46,18 +46,18 @@ public class Board extends Renderer {
           double topLeftX = ((double) j - 5) / 5;
           double topLeftY = - ((double) i - 5) / 5;
           vertices.add(new Vector2(topLeftX, topLeftY));
-          vertices.add(new Vector2(topLeftX + 0.1, topLeftY));
-          vertices.add(new Vector2(topLeftX + 0.1, topLeftY - 0.1));
-          vertices.add(new Vector2(topLeftX, topLeftY - 0.1));
+          vertices.add(new Vector2(topLeftX + 0.2, topLeftY));
+          vertices.add(new Vector2(topLeftX + 0.2, topLeftY - 0.2));
+          vertices.add(new Vector2(topLeftX, topLeftY - 0.2));
           int n = counter;
           // 1 to 2
-          edges.add(counter, counter + 1);
+          edges.add(counter, ++counter);
           // 2 to 3
-          edges.add(counter, counter + 1);
+          edges.add(counter, ++counter);
           // 3 to 4
-          edges.add(counter, counter + 1);
+          edges.add(counter, ++counter);
           // 4 to 1
-          edges.add(counter, n - 1);
+          edges.add(counter, n);
           counter++;
         }
       }
@@ -73,15 +73,13 @@ public class Board extends Renderer {
     return maxY;
   }
 
-  private Tetrominoe shapeAt(int x, int y) {
-    return board[y][x];
-  }
 
   public void start() {
     curPiece = new TetrisShape();
     for (int i = 0; i < 4; i++) {
-      board[curPiece.xs[i]][curPiece.ys[i]] = curPiece.getShape();
+      board[curPiece.ys[i]][curPiece.xs[i]] = curPiece.getShape();
     }
+    createVerticesAndEdges();
     timer = new Timer(PERIOD_INTERVAL, new GameCycle());
     timer.start();
   }
@@ -122,7 +120,7 @@ public class Board extends Renderer {
       if (x < 0 || x >= BOARD_WIDTH || y < 0 || y >= BOARD_HEIGHT) {
         return false;
       }
-      if (shapeAt(x, y) != Tetrominoe.NoShape) {
+      if (board[y][x] != Tetrominoe.NoShape) {
         return false;
       }
     }
@@ -130,8 +128,10 @@ public class Board extends Renderer {
       for (int j = 0; j < 4; j++) {
         int currX = curPiece.xs[i];
         int currY = curPiece.ys[j];
-        board[currX][currY] = Tetrominoe.NoShape;
-        board[currX + deltaX][currY + deltaY] = curPiece.getShape();
+        board[currY][currX] = Tetrominoe.NoShape;
+        board[currY + deltaY][currX + deltaX] = curPiece.getShape();
+        curPiece.xs[i] = currX + deltaX;
+        curPiece.ys[i] = currY + deltaY;
       }
     }
     removeFullLines();
@@ -143,7 +143,7 @@ public class Board extends Renderer {
     for (int i = BOARD_HEIGHT - 1; i >= 0; i--) {
       boolean lineIsFull = true;
       for (int j = 0; j < BOARD_WIDTH; j++) {
-        if (shapeAt(j, i) == Tetrominoe.NoShape) {
+        if (board[i][j] == Tetrominoe.NoShape) {
           lineIsFull = false;
           break;
         }
@@ -151,7 +151,7 @@ public class Board extends Renderer {
       if (lineIsFull) {
         numFullLines++;
         for (int j = 0; j < BOARD_WIDTH; j++) {
-          board[j][i] = Tetrominoe.NoShape;
+          board[i][j] = Tetrominoe.NoShape;
         }
       }
     }
