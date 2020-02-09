@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import javax.swing.Timer;
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -34,19 +33,19 @@ public class Board extends Renderer {
     }
   }
 
-  private void createVerticesAndEdges(){
+  private void createVerticesAndEdges() {
     int counter = 0;
     vertices = new ArrayList<>();
     edges = new ArrayList<>();
-    for (int i = 0; i < BOARD_HEIGHT; i++){
-      for (int j = 0; j < BOARD_WIDTH; j++){
-        if (board[i][j] != Tetrominoe.NoShape){
+    for (int i = 0; i < BOARD_HEIGHT; i++) {
+      for (int j = 0; j < BOARD_WIDTH; j++) {
+        if (board[i][j] != Tetrominoe.NoShape) {
           double topLeftX = ((double) i - 5) / 5;
           double topLeftY = ((double) j - 5) / 5;
           vertices.add(new Vector2(topLeftX, topLeftY));
           vertices.add(new Vector2(topLeftX + 0.1, topLeftY));
-          vertices.add(new Vector2(topLeftX, topLeftY - 0.1));
           vertices.add(new Vector2(topLeftX - 0.1, topLeftY - 0.1));
+          vertices.add(new Vector2(topLeftX, topLeftY - 0.1));
           edges.add(counter, ++counter);
           edges.add(counter, ++counter);
           edges.add(counter, ++counter);
@@ -55,11 +54,12 @@ public class Board extends Renderer {
         }
       }
     }
+    render(vertices, edges);
   }
 
-  private int maxY(){
+  private int maxY() {
     int maxY = curPiece.ys[0];
-    for (int i = 0; i < 4; i++){
+    for (int i = 0; i < 4; i++) {
       maxY = Math.max(maxY, curPiece.ys[i]);
     }
     return maxY;
@@ -72,7 +72,7 @@ public class Board extends Renderer {
   public void start() {
 
     curPiece = new TetrisShape();
-    for (int i = 0; i < 4; i++){
+    for (int i = 0; i < 4; i++) {
       board[curPiece.xs[i]][curPiece.ys[i]] = curPiece.getShape();
     }
     timer = new Timer(PERIOD_INTERVAL, new GameCycle());
@@ -99,7 +99,7 @@ public class Board extends Renderer {
   }
 
   private void pieceDropped() {
-    if (maxY() == BOARD_HEIGHT - 1){
+    if (maxY() == BOARD_HEIGHT - 1) {
       isFallingFinished = true;
     }
   }
@@ -119,8 +119,8 @@ public class Board extends Renderer {
         return false;
       }
     }
-    for (int i = 0; i < 4; i++){
-      for (int j = 0; j < 4; j++){
+    for (int i = 0; i < 4; i++) {
+      for (int j = 0; j < 4; j++) {
         int currX = curPiece.xs[i];
         int currY = curPiece.ys[j];
         board[currX][currY] = Tetrominoe.NoShape;
@@ -128,7 +128,7 @@ public class Board extends Renderer {
       }
     }
     removeFullLines();
-     return true;
+    return true;
   }
 
   private void removeFullLines() {
@@ -143,9 +143,9 @@ public class Board extends Renderer {
       }
       if (lineIsFull) {
         numFullLines++;
-          for (int j = 0; j < BOARD_WIDTH; j++) {
-            board[j][i] = Tetrominoe.NoShape;
-          }
+        for (int j = 0; j < BOARD_WIDTH; j++) {
+          board[j][i] = Tetrominoe.NoShape;
+        }
       }
     }
     if (numFullLines > 0) {
@@ -156,6 +156,7 @@ public class Board extends Renderer {
 
 
   private class GameCycle implements ActionListener {
+
     @Override
     public void actionPerformed(ActionEvent e) {
       doGameCycle();
@@ -195,7 +196,7 @@ public class Board extends Renderer {
           pause();
           break;
         case KeyEvent.VK_LEFT:
-          tryMove(curPiece, - 1, 0);
+          tryMove(curPiece, -1, 0);
           break;
         case KeyEvent.VK_RIGHT:
           tryMove(curPiece, 1, 0);
@@ -203,12 +204,12 @@ public class Board extends Renderer {
         case KeyEvent.VK_DOWN:
           dropDown();
           break;
-        //case KeyEvent.VK_Q:
-          //tryRotateLeft(curPiece);
-          //break;
-        //case KeyEvent.VK_E:
-         // tryRotateRight(curPiece);
-          //break;
+        case KeyEvent.VK_Q:
+          tryMove(curPiece.rotateLeft(), curPiece.xs[0], curPiece.ys[0]);
+          break;
+        case KeyEvent.VK_E:
+          tryMove(curPiece.rotateRight(), curPiece.xs[0], curPiece.ys[0]);
+          break;
       }
     }
   }

@@ -11,6 +11,10 @@ public class TetrisShape {
     initialiseShape();
   }
 
+  private void setShape(Tetrominoe tetrominoe) {
+    this.shape = tetrominoe;
+  }
+
   private void initialiseShape() {
     switch (shape) {
       case ZShape:
@@ -56,5 +60,32 @@ public class TetrisShape {
     Tetrominoe[] values = Tetrominoe.values();
     return values[x];
   }
+
+  public TetrisShape rotateLeft() {
+    if (shape == Tetrominoe.SquareShape) {
+      return this;
+    }
+    TetrisShape result = new TetrisShape();
+    result.setShape(shape);
+    for (int i = 0; i < 4; i++) {
+      result.xs[i] = ys[i];
+      result.ys[i]  = - xs[i];
+    }
+    return result;
+  }
+
+  public TetrisShape rotateRight() {
+    if (shape == Tetrominoe.SquareShape) {
+      return this;
+    }
+    TetrisShape result = new TetrisShape();
+    result.setShape(shape);
+    for (int i = 0; i < 4; i++) {
+      result.xs[i] = - ys[i];
+      result.ys[i]  = xs[i];
+    }
+    return result;
+  }
+
 
 }
