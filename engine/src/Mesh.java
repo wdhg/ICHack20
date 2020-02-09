@@ -47,8 +47,10 @@ public class Mesh {
     // load edge data
     List<Integer> edgeData = new ArrayList<>();
     for(MatchResult result : sc.findAll(FACE_PATTERN).collect(Collectors.toList())) {
-      for(Integer index : parseFace(result.group(0))) {
-        edgeData.add(index);
+      List<Integer> indices = parseFace(result.group(0));
+      for(int i = 0; i < indices.size(); i++ ) {
+        edgeData.add(indices.get(i));
+        edgeData.add(indices.get((i + 1) % indices.size()));
       }
     }
     return new Mesh(vertices, edgeData);
@@ -67,11 +69,6 @@ public class Mesh {
     String[] datas = data.split(" ");
     for(int i = 1; i < datas.length; i++) {
       indices.add(Integer.parseInt(datas[i].split("/")[0]));
-    }
-    List<Integer> edgeData = new ArrayList<>();
-    for(int i = 0; i < edgeData.size(); i++) {
-      edgeData.add(i);
-      edgeData.add((i + 1) % (edgeData.size() - 1));
     }
     return indices;
   }
