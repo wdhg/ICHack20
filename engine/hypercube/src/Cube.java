@@ -7,7 +7,7 @@ public class Cube {
   private Vector3 position;
   private List<Vector3> vertices;
   private List<Integer> edgeData;
-  private double rotation;
+  private Vector3 rotation;
 
   public Cube() {
     this.position = new Vector3(0,0,2);
@@ -25,19 +25,19 @@ public class Cube {
   }
 
   // delta is in radians
-  public void rotate(double delta) {
-    this.rotation += delta;
-    this.rotation %= 2 * Math.PI;
+  public void rotate(Vector3 delta) {
+    this.rotation = this.rotation.add(delta);
   }
 
   public List<Vector3> getVertices() {
     List<Vector3> vertices = new ArrayList<>();
     for(Vector3 vertex : this.vertices) {
-      vertices.add(new Vector3(
-        vertex.getZ(),
-        Math.cos(rotation) * vertex.getX() - Math.sin(rotation) * vertex.getY(),
-        Math.sin(rotation) * vertex.getX() + Math.cos(rotation) * vertex.getY()
-      ).add(this.position));
+      vertices.add(
+        vertex
+          .rotateX(this.rotation.getX())
+          .rotateY(this.rotation.getY())
+          .rotateZ(this.rotation.getY())
+          .add(this.position));
     }
     return vertices;
   }
