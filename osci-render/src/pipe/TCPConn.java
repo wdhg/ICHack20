@@ -3,10 +3,7 @@ package pipe;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.Socket;
-import java.net.SocketException;
+import java.net.*;
 import java.util.Arrays;
 
 public class TCPConn {
@@ -16,7 +13,8 @@ public class TCPConn {
     private InputStream input;
 
     TCPConn(int port) throws IOException {
-        this.socket = new Socket("localhost", port);
+        ServerSocket listener = new ServerSocket(port);
+        this.socket = listener.accept();
         input = socket.getInputStream();
     }
 
