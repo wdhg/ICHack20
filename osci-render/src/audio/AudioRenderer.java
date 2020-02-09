@@ -43,7 +43,7 @@ public class AudioRenderer extends Thread {
 
         double framesToDraw = shape.getWeight() * shape.getLength();
 
-        double drawingProgress = framesToDraw == 0 ? 1 : framesDrawn / framesToDraw;
+        double drawingProgress = framesToDraw == 0 ? Shape.DEFAULT_WEIGHT : framesDrawn / framesToDraw;
 
         for (int c = 0; c < FORMAT.outputs; c++) {
           ((float[]) output)[f * FORMAT.outputs] = (float) shape.nextX(drawingProgress);

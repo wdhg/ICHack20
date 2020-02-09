@@ -1,3 +1,5 @@
+import static com.sun.java.accessibility.util.AWTEventMonitor.addKeyListener;
+
 import java.util.ArrayList;
 import javax.swing.Timer;
 import java.awt.event.ActionEvent;
@@ -23,6 +25,7 @@ public class Board extends Renderer {
     this.board = new Tetrominoe[BOARD_HEIGHT][BOARD_WIDTH];
     this.curPiece = new TetrisShape();
     initBoard();
+    addKeyListener(new TAdapter());
   }
 
   private void initBoard() {
@@ -40,16 +43,21 @@ public class Board extends Renderer {
     for (int i = 0; i < BOARD_HEIGHT; i++) {
       for (int j = 0; j < BOARD_WIDTH; j++) {
         if (board[i][j] != Tetrominoe.NoShape) {
-          double topLeftX = ((double) i - 5) / 5;
-          double topLeftY = ((double) j - 5) / 5;
+          double topLeftX = ((double) j - 5) / 5;
+          double topLeftY = - ((double) i - 5) / 5;
           vertices.add(new Vector2(topLeftX, topLeftY));
           vertices.add(new Vector2(topLeftX + 0.1, topLeftY));
-          vertices.add(new Vector2(topLeftX - 0.1, topLeftY - 0.1));
+          vertices.add(new Vector2(topLeftX + 0.1, topLeftY - 0.1));
           vertices.add(new Vector2(topLeftX, topLeftY - 0.1));
-          edges.add(counter, ++counter);
-          edges.add(counter, ++counter);
-          edges.add(counter, ++counter);
-          edges.add(counter, counter - 3);
+          int n = counter;
+          // 1 to 2
+          edges.add(counter, counter + 1);
+          // 2 to 3
+          edges.add(counter, counter + 1);
+          // 3 to 4
+          edges.add(counter, counter + 1);
+          // 4 to 1
+          edges.add(counter, n);
           counter++;
         }
       }
