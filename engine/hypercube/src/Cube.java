@@ -37,7 +37,7 @@ public class Cube {
         Math.cos(rotation) * vertex.getX() - Math.sin(rotation) * vertex.getY(),
         Math.sin(rotation) * vertex.getX() + Math.cos(rotation) * vertex.getY(),
         vertex.getZ()
-      ));
+      ).add(this.position));
     }
     return vertices;
   }
