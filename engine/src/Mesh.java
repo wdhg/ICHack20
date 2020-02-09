@@ -42,12 +42,12 @@ public class Mesh {
     // load vertices
     List<Vector3> vertices =
       sc.findAll(VERTEX_PATTERN)
-      .map(s -> parseVertex(s.toString()))
+      .map(s -> parseVertex(s.group(0)))
       .collect(Collectors.toList());
     // load edge data
     List<Integer> edgeData = new ArrayList<>();
     for(MatchResult result : sc.findAll(FACE_PATTERN).collect(Collectors.toList())) {
-      for(Integer index : parseFace(result.toString())) {
+      for(Integer index : parseFace(result.group(0))) {
         edgeData.add(index);
       }
     }
@@ -67,6 +67,11 @@ public class Mesh {
     String[] datas = data.split(" ");
     for(int i = 1; i < datas.length; i++) {
       indices.add(Integer.parseInt(datas[i].split("/")[0]));
+    }
+    List<Integer> edgeData = new ArrayList<>();
+    for(int i = 0; i < edgeData.size(); i++) {
+      edgeData.add(i);
+      edgeData.add((i + 1) % (edgeData.size() - 1));
     }
     return indices;
   }
