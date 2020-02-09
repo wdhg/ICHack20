@@ -40,9 +40,13 @@ public class PlayerClient {
     player.start();
 
     while (true) {
-      List<Shape> frame = pipe.getFrame();
-
-      AudioRenderer.updateFrame(Shapes.sortLines(frame));
+      try {
+        List<Shape> frame = pipe.getFrame();
+        AudioRenderer.updateFrame(Shapes.sortLines(frame));
+      } catch (java.net.SocketException e){
+        System.out.println("reconnecting");
+        pipe = new Pipe();
+      }
     }
   }
 }
