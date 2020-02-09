@@ -41,4 +41,11 @@ public class Hypercube {
   public List<Integer> getEdgeData() {
     return edgeData;
   }
+
+  public void rotateZW(double delta) {
+    List<Vector4> vertices = new ArrayList<>();
+    for(Vector4 vertex : this.getVertices()) {
+      vertices.add(vertex.rotateZW(delta));
+    }
+  }
 }
