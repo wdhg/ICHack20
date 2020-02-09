@@ -12,8 +12,8 @@ public class Camera extends Renderer{
   private double fov;
 
   public Camera() {
-    this.focalLength = 0.9;
-    this.position = new Vector3(0,0,-1);
+    this.focalLength = 0.6;
+    this.position = new Vector3(0,0,-2);
     this.fov = 60;
   }
 
@@ -54,8 +54,8 @@ public class Camera extends Renderer{
       return new Vector2(0, 0);
     }
     return new Vector2(
-      vertex.getX() * focalLength / vertex.getZ() + this.position.getX(),
-      vertex.getY() * focalLength / vertex.getZ() + this.position.getY()
+      vertex.getX() * focalLength / (vertex.getZ() - this.position.getZ()) + this.position.getX(),
+      vertex.getY() * focalLength / (vertex.getZ() - this.position.getZ()) + this.position.getY()
     );
   }
 }
