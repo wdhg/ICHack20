@@ -11,21 +11,21 @@ public class Hypercube {
   public Hypercube() {
     this.vertices = new ArrayList<>();
     this.rotation = new Vector4();
-    this.vertices.add(new Vector4(0,0,0,0));
-    this.vertices.add(new Vector4(0,0,0,1));
-    this.vertices.add(new Vector4(0,0,1,0));
-    this.vertices.add(new Vector4(0,0,1,1));
-    this.vertices.add(new Vector4(0,1,0,0));
-    this.vertices.add(new Vector4(0,1,0,1));
-    this.vertices.add(new Vector4(0,1,1,0));
-    this.vertices.add(new Vector4(0,1,1,1));
-    this.vertices.add(new Vector4(1,0,0,0));
-    this.vertices.add(new Vector4(1,0,0,1));
-    this.vertices.add(new Vector4(1,0,1,0));
-    this.vertices.add(new Vector4(1,0,1,1));
-    this.vertices.add(new Vector4(1,1,0,0));
-    this.vertices.add(new Vector4(1,1,0,1));
-    this.vertices.add(new Vector4(1,1,1,0));
+    this.vertices.add(new Vector4(-1,-1,-1,-1));
+    this.vertices.add(new Vector4(-1,-1,-1,1));
+    this.vertices.add(new Vector4(-1,-1,1,-1));
+    this.vertices.add(new Vector4(-1,-1,1,1));
+    this.vertices.add(new Vector4(-1,1,-1,-1));
+    this.vertices.add(new Vector4(-1,1,-1,1));
+    this.vertices.add(new Vector4(-1,1,1,-1));
+    this.vertices.add(new Vector4(-1,1,1,1));
+    this.vertices.add(new Vector4(1,-1,-1,-1));
+    this.vertices.add(new Vector4(1,-1,-1,1));
+    this.vertices.add(new Vector4(1,-1,1,-1));
+    this.vertices.add(new Vector4(1,-1,1,1));
+    this.vertices.add(new Vector4(1,1,-1,-1));
+    this.vertices.add(new Vector4(1,1,-1,1));
+    this.vertices.add(new Vector4(1,1,1,-1));
     this.vertices.add(new Vector4(1,1,1,1));
     this.edgeData = Arrays.asList(
       0,1,1,5,5,4,2,3,3,7,7,6,0,2,4,6,1,3,5,7,

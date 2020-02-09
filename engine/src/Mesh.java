@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -6,8 +7,8 @@ import java.util.stream.Collectors;
 
 public class Mesh {
 
-  private static final String VERTEX_PATTERN = "^v *";
-  private static final String FACE_PATTERN = "^f ";
+  private static final String VERTEX_PATTERN = "(?m)^v .*";
+  private static final String FACE_PATTERN = "(?m)^f .*";
 
   private List<Vector3> vertices;
   private List<Integer> edgeData;
@@ -22,10 +23,18 @@ public class Mesh {
     this.edgeData = edgeData;
   }
 
+  public List<Vector3> getVertices() {
+    return vertices;
+  }
+
+  public List<Integer> getEdgeData() {
+    return edgeData;
+  }
+
   public static Mesh loadFromFile(String filename) {
     Scanner sc;
     try {
-      sc = new Scanner(filename);
+      sc = new Scanner(new File(filename));
     } catch (Exception e) {
       System.err.println("Cannot load mesh data from: " + filename);
       return new Mesh();
@@ -33,13 +42,15 @@ public class Mesh {
     // load vertices
     List<Vector3> vertices =
       sc.findAll(VERTEX_PATTERN)
-      .map(s -> parseVertex(s.toString()))
+      .map(s -> parseVertex(s.group(0)))
       .collect(Collectors.toList());
     // load edge data
     List<Integer> edgeData = new ArrayList<>();
     for(MatchResult result : sc.findAll(FACE_PATTERN).collect(Collectors.toList())) {
-      for(Integer index : parseFace(result.toString())) {
-        edgeData.add(index);
+      List<Integer> indices = parseFace(result.group(0));
+      for(int i = 0; i < indices.size(); i++ ) {
+        edgeData.add(indices.get(i));
+        edgeData.add(indices.get((i + 1) % indices.size()));
       }
     }
     return new Mesh(vertices, edgeData);
@@ -57,7 +68,7 @@ public class Mesh {
     List<Integer> indices = new ArrayList();
     String[] datas = data.split(" ");
     for(int i = 1; i < datas.length; i++) {
-      indices.add(Integer.parseInt(datas[i].split("/")[0]));
+      indices.add(Integer.parseInt(datas[i].split("/")[0]) - 1);
     }
     return indices;
   }
