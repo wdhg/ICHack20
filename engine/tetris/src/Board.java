@@ -47,12 +47,17 @@ public class Board extends Renderer {
           double topLeftY = - ((double) i - 5) / 5;
           vertices.add(new Vector2(topLeftX, topLeftY));
           vertices.add(new Vector2(topLeftX + 0.1, topLeftY));
-          vertices.add(new Vector2(topLeftX - 0.1, topLeftY - 0.1));
+          vertices.add(new Vector2(topLeftX + 0.1, topLeftY - 0.1));
           vertices.add(new Vector2(topLeftX, topLeftY - 0.1));
-          edges.add(counter, ++counter);
-          edges.add(counter, ++counter);
-          edges.add(counter, ++counter);
-          edges.add(counter, counter - 3);
+          int n = counter;
+          // 1 to 2
+          edges.add(counter, counter + 1);
+          // 2 to 3
+          edges.add(counter, counter + 1);
+          // 3 to 4
+          edges.add(counter, counter + 1);
+          // 4 to 1
+          edges.add(counter, n);
           counter++;
         }
       }
