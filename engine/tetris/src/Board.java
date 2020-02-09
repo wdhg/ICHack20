@@ -74,7 +74,6 @@ public class Board extends Renderer {
     }
     createVerticesAndEdges();
     while (!gameOver){
-      Thread.sleep(1000);
       update();
     }
   }
@@ -111,7 +110,7 @@ public class Board extends Renderer {
   private boolean tryMove(TetrisShape newPiece, int deltaX, int deltaY) {
     for (int i = 0; i < 4; i++) {
       int x = deltaX + newPiece.xs[i];
-      int y = deltaY - newPiece.ys[i];
+      int y = deltaY + newPiece.ys[i];
       if (x < 0 || x >= BOARD_WIDTH || y < 0 || y >= BOARD_HEIGHT) {
         return false;
       }
@@ -119,6 +118,9 @@ public class Board extends Renderer {
         return false;
       }
     }
+
+    System.out.println("lol");
+
     for (int i = 0; i < 4; i++) {
       for (int j = 0; j < 4; j++) {
         int currX = curPiece.xs[i];
