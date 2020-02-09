@@ -46,18 +46,18 @@ public class Board extends Renderer {
           double topLeftX = ((double) j - 5) / 5;
           double topLeftY = - ((double) i - 5) / 5;
           vertices.add(new Vector2(topLeftX, topLeftY));
-          vertices.add(new Vector2(topLeftX + 0.1, topLeftY));
-          vertices.add(new Vector2(topLeftX + 0.1, topLeftY - 0.1));
-          vertices.add(new Vector2(topLeftX, topLeftY - 0.1));
+          vertices.add(new Vector2(topLeftX + 0.2, topLeftY));
+          vertices.add(new Vector2(topLeftX + 0.2, topLeftY - 0.2));
+          vertices.add(new Vector2(topLeftX, topLeftY - 0.2));
           int n = counter;
           // 1 to 2
-          edges.add(counter, counter + 1);
+          edges.add(counter, ++counter);
           // 2 to 3
-          edges.add(counter, counter + 1);
+          edges.add(counter, ++counter);
           // 3 to 4
-          edges.add(counter, counter + 1);
+          edges.add(counter, ++counter);
           // 4 to 1
-          edges.add(counter, n - 1);
+          edges.add(counter, n);
           counter++;
         }
       }
