@@ -44,7 +44,7 @@ public class Board extends Renderer {
       for (int j = 0; j < BOARD_WIDTH; j++) {
         if (board[i][j] != Tetrominoe.NoShape) {
           double topLeftX = ((double) j - 5) / 5;
-          double topLeftY = - ((double) i - 5) / 5;
+          double topLeftY = ((double) i + 5) / 5;
           vertices.add(new Vector2(topLeftX, topLeftY));
           vertices.add(new Vector2(topLeftX + 0.1, topLeftY));
           vertices.add(new Vector2(topLeftX + 0.1, topLeftY - 0.1));
@@ -62,7 +62,6 @@ public class Board extends Renderer {
         }
       }
     }
-    render(vertices, edges);
   }
 
   private int maxY() {
@@ -78,7 +77,6 @@ public class Board extends Renderer {
   }
 
   public void start() {
-
     curPiece = new TetrisShape();
     for (int i = 0; i < 4; i++) {
       board[curPiece.xs[i]][curPiece.ys[i]] = curPiece.getShape();
