@@ -22,7 +22,7 @@ public class TCPConn {
     String getData() throws IOException {
         byte[] lenB = new byte[2];
         input.read(lenB);
-        int len = lenB[0] << 8 + lenB[1];
+        int len = (lenB[0] << 8) + lenB[1];
 
         int pointer = 0;
         for (;pointer < len;){
