@@ -19,11 +19,23 @@ public class PongClient {
       pong.update();
       pong.render(pong.getVertices(), pong.getConnections());
 
-      String input = keyboard.nextLine();
+      String input = keyboard.next();
       if(input != null) {
-        if (input.equals("w")) {
-          left.move(0.1);
+        switch (input) {
+          case "w":
+            left.move(0.1);
+            break;
+          case "s":
+            left.move(-0.1);
+            break;
+          case "i":
+            right.move(0.1);
+            break;
+          case "k":
+            right.move(-0.1);
+            break;
         }
+
       }
     }
   }
