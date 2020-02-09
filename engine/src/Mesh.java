@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -6,8 +7,8 @@ import java.util.stream.Collectors;
 
 public class Mesh {
 
-  private static final String VERTEX_PATTERN = "^v *";
-  private static final String FACE_PATTERN = "^f ";
+  private static final String VERTEX_PATTERN = "(?m)^v .*";
+  private static final String FACE_PATTERN = "(?m)^f .*";
 
   private List<Vector3> vertices;
   private List<Integer> edgeData;
@@ -33,7 +34,7 @@ public class Mesh {
   public static Mesh loadFromFile(String filename) {
     Scanner sc;
     try {
-      sc = new Scanner(filename);
+      sc = new Scanner(new File(filename));
     } catch (Exception e) {
       System.err.println("Cannot load mesh data from: " + filename);
       return new Mesh();
