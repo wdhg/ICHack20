@@ -5,7 +5,11 @@ public class Main {
     Cube cube = new Cube();
     while(true) {
       camera.draw(cube);
-      cube.rotate(Math.PI / 1000);
+      cube.rotate(new Vector3(
+        Math.PI / 1000,
+        Math.PI / 1000,
+        0
+      ));
       Thread.sleep(1000/60);
     }
   }
