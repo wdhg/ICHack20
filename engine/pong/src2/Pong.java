@@ -32,22 +32,30 @@ public class Pong extends Renderer {
      && ball.getPos().getY() < left.getTopLeft().getY()
      && ball.getPos().getY() > left.getTopLeft().getY() - left.getHeight()) {
       ball.getVel().setX(-ball.getVel().getX());
+      ball.setPos(new Vector2(-0.9, ball.getPos().getY()));
     } else if (ball.getPos().getX() > right.getTopLeft().getX()
       && ball.getPos().getY() < right.getTopLeft().getY()
       && ball.getPos().getY() > right.getTopLeft().getY() - right.getHeight()) {
       ball.getVel().setX(-ball.getVel().getX());
+      ball.setPos(new Vector2(0.9, ball.getPos().getY()));
     }
   }
 
   private void checkBounds() {
-    if (ball.getPos().getY() > 1 || ball.getPos().getY() < - 1) {
+    if (ball.getPos().getY() > 1) {
       ball.getVel().setY(-ball.getVel().getY());
+      ball.setPos(new Vector2(ball.getPos().getX(), 0.9));
+    }
+
+    if (ball.getPos().getY() < - 1) {
+      ball.getVel().setY(-ball.getVel().getY());
+      ball.setPos(new Vector2(ball.getPos().getX(), -0.9));
     }
   }
 
   private void checkEnd() {
-    if (ball.getPos().getX() > 1 || ball.getPos().getX() < - 1) {
-      won = true;
+    if (ball.getPos().getX() > 0.8 || ball.getPos().getX() < -0.8) {
+      //won = true;
     }
   }
 
@@ -56,25 +64,31 @@ public class Pong extends Renderer {
 
     // ball conns.
     conns.add(0);
+    conns.add(1);
+    conns.add(1);
+    conns.add(2);
+    conns.add(2);
+    conns.add(3);
+    conns.add(3);
     conns.add(0);
 
-    conns.add(1);
-    conns.add(2);
-    conns.add(2);
-    conns.add(3);
-    conns.add(3);
     conns.add(4);
+    conns.add(5);
+    conns.add(5);
+    conns.add(6);
+    conns.add(6);
+    conns.add(7);
+    conns.add(7);
     conns.add(4);
-    conns.add(1);
 
-    conns.add(5);
-    conns.add(6);
-    conns.add(6);
-    conns.add(7);
-    conns.add(7);
     conns.add(8);
+    conns.add(9);
+    conns.add(9);
+    conns.add(10);
+    conns.add(10);
+    conns.add(11);
+    conns.add(11);
     conns.add(8);
-    conns.add(5);
 
     return conns;
   }
@@ -87,7 +101,15 @@ public class Pong extends Renderer {
     double rightX = right.getTopLeft().getX();
     double rightY = right.getTopLeft().getY();
 
-    vertices.add(ball.getPos());
+    double x = ball.getPos().getX();
+    double y = ball.getPos().getY();
+
+    double size = 0.05;
+
+    vertices.add(new Vector2(x - size, y + size));
+    vertices.add(new Vector2(x + size, y + size));
+    vertices.add(new Vector2(x + size, y - size));
+    vertices.add(new Vector2(x - size, y - size));
 
     vertices.add(new Vector2(leftX, leftY));
     vertices.add(new Vector2(leftX + left.getWidth(), leftY));
