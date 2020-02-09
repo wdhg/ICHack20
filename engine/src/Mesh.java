@@ -22,6 +22,14 @@ public class Mesh {
     this.edgeData = edgeData;
   }
 
+  public List<Vector3> getVertices() {
+    return vertices;
+  }
+
+  public List<Integer> getEdgeData() {
+    return edgeData;
+  }
+
   public static Mesh loadFromFile(String filename) {
     Scanner sc;
     try {
