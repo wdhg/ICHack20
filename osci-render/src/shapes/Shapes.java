@@ -46,18 +46,25 @@ public class Shapes {
       AsSubgraph<Point, DefaultWeightedEdge> subgraph = new AsSubgraph<>(graph, vertices);
 
       ChinesePostman<Point, DefaultWeightedEdge> cp = new ChinesePostman<>();
-      GraphPath<Point, DefaultWeightedEdge> edges = cp.getCPPSolution(subgraph);
 
-      Point prevPoint = edges.getStartVertex();
-      Point firstPoint = edges.getStartVertex();
-      List<Point> path = edges.getVertexList();
+      try {
+        GraphPath<Point, DefaultWeightedEdge> edges = cp.getCPPSolution(subgraph);
 
-      for (int i = 1; i < edges.getLength(); i++) {
-        sortedLines.add(new Line(prevPoint, path.get(i)));
-        prevPoint = path.get(i);
+        Point prevPoint = edges.getStartVertex();
+        Point firstPoint = edges.getStartVertex();
+        List<Point> path = edges.getVertexList();
+
+        for (int i = 1; i < edges.getLength(); i++) {
+          sortedLines.add(new Line(prevPoint, path.get(i)));
+          prevPoint = path.get(i);
+        }
+
+        sortedLines.add(new Line(prevPoint, firstPoint));
+      } catch (Exception e) {
+        for (DefaultWeightedEdge edge : subgraph.edgeSet()) {
+          sortedLines.add(new Line(subgraph.getEdgeSource(edge), subgraph.getEdgeTarget(edge)));
+        }
       }
-
-      sortedLines.add(new Line(prevPoint, firstPoint));
     }
 
     return sortedLines;

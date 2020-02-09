@@ -6,7 +6,7 @@ import java.net.DatagramSocket;
 import java.net.SocketException;
 
 public class UDPConn {
-    private int bufLen = 1024;
+    private int bufLen = 10240;
     private DatagramSocket socket;
     private byte[] buf = new byte[bufLen];
 

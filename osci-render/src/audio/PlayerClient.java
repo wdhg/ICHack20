@@ -18,7 +18,7 @@ public class PlayerClient {
     Pipe pipe = new Pipe();
 
 //    List<Shape> squares = new ArrayList<>();
-
+//
 //    squares.addAll(Shapes.generateSquare(0.0485, 1.0085, 0.32));
 //    squares.addAll(Shapes.generateSquare(0.3685, 0.6885, 0.32));
 //    squares.addAll(Shapes.generateSquare(0.0485, 0.3685, 0.32));
@@ -36,13 +36,13 @@ public class PlayerClient {
 //
 //    AudioRenderer.addShapes(Shapes.generateSquare(0.0485, -0.0485, 0.631));
 //    AudioRenderer.addShapes(Shapes.generateSquare(0.369, -0.369, 0.631));
-//
+
     player.start();
 
     while (true) {
       List<Shape> frame = pipe.getFrame();
 
-      AudioRenderer.updateFrame(frame);
+      AudioRenderer.updateFrame(Shapes.sortLines(frame));
     }
   }
 }
