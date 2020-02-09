@@ -1,3 +1,5 @@
+import static com.sun.java.accessibility.util.AWTEventMonitor.addKeyListener;
+
 import java.util.ArrayList;
 import javax.swing.Timer;
 import java.awt.event.ActionEvent;
@@ -23,6 +25,7 @@ public class Board extends Renderer {
     this.board = new Tetrominoe[BOARD_HEIGHT][BOARD_WIDTH];
     this.curPiece = new TetrisShape();
     initBoard();
+    addKeyListener(new TAdapter());
   }
 
   private void initBoard() {
