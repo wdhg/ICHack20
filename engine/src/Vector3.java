@@ -43,6 +43,30 @@ public class Vector3 {
     );
   }
 
+  public Vector3 rotateX(double delta) {
+    return new Vector3(
+      getX(),
+      Math.cos(delta) * getY() - Math.sin(delta) * getZ(),
+      Math.sin(delta) * getY() + Math.cos(delta) * getZ()
+    );
+  }
+
+  public Vector3 rotateY(double delta) {
+    return new Vector3(
+      Math.cos(delta) * getX() + Math.sin(delta) * getZ(),
+      getY(),
+      -Math.sin(delta) * getX() + Math.cos(delta) * getZ()
+    );
+  }
+
+  public Vector3 rotateZ(double delta) {
+    return new Vector3(
+      Math.cos(delta) * getX() - Math.sin(delta) * getY(),
+      Math.sin(delta) * getX() + Math.cos(delta) * getY(),
+      getZ()
+    );
+  }
+
   public static Vector3 meanPoint(List<Vector3> points) {
     Vector3 mean = new Vector3();
     for(Vector3 point : points) {
