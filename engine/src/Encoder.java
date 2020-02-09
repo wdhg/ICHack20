@@ -1,5 +1,6 @@
 import com.google.gson.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Encoder {
@@ -27,6 +28,6 @@ public class Encoder {
 
         JsonObject root = new JsonObject();
         root.add("frame", frame);
-        return root.getAsString();
+        return root.toString();
     }
 }
