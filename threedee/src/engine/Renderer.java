@@ -26,7 +26,6 @@ public class Renderer extends Thread{
 
             game.update(1.0/30);
             String jsonPlot = genPlot(game.renderAll());
-            System.out.println(jsonPlot);
 
             try {
                 output.send(jsonPlot);

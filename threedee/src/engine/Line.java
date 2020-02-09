@@ -14,9 +14,9 @@ public class Line implements Plottable {
         this.end = new Point(x2,y2);
     }
 
-    public void translateVert(double delta){
-        start = new Point(start.getX(), start.getY() + delta);
-        end = new Point(end.getX(), end.getY() + delta);
+    public void setXY(double x1, double y1, double x2, double y2){
+        this.start = new Point(x1,y1);
+        this.end = new Point(x2,y2);
     }
 
     public Point getStart(){

@@ -42,6 +42,7 @@ public class PlayerClient {
     while (true) {
       try {
         List<Shape> frame = pipe.getFrame();
+
         AudioRenderer.updateFrame(Shapes.sortLines(frame));
       } catch (java.net.SocketException e){
         System.out.println("reconnecting");

@@ -6,6 +6,7 @@ import org.jgrapht.alg.connectivity.ConnectivityInspector;
 import org.jgrapht.alg.cycle.ChinesePostman;
 import org.jgrapht.graph.AsSubgraph;
 import org.jgrapht.graph.DefaultDirectedWeightedGraph;
+import org.jgrapht.graph.DefaultUndirectedWeightedGraph;
 import org.jgrapht.graph.DefaultWeightedEdge;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class Shapes {
   }
 
   public static List<Shape> sortLines(List<Shape> shapes) {
-    Graph<Point, DefaultWeightedEdge> graph = new DefaultDirectedWeightedGraph<>(DefaultWeightedEdge.class);
+    Graph<Point, DefaultWeightedEdge> graph = new DefaultUndirectedWeightedGraph<>(DefaultWeightedEdge.class);
 
     for (Shape shape : shapes) {
       Line line = (Line) shape;
@@ -37,6 +38,22 @@ public class Shapes {
       graph.addEdge(line.getA(), line.getB(), edge);
       graph.setEdgeWeight(edge, line.length * line.weight);
     }
+
+//    List<Shape> sortedLines = new ArrayList<>();
+//
+//    ChinesePostman<Point, DefaultWeightedEdge> cp = new ChinesePostman<>();
+//    GraphPath<Point, DefaultWeightedEdge> edges = cp.getCPPSolution(graph);
+//
+//    Point prevPoint = edges.getStartVertex();
+//    Point firstPoint = edges.getStartVertex();
+//    List<Point> path = edges.getVertexList();
+//
+//    for (int i = 1; i < edges.getLength(); i++) {
+//      sortedLines.add(new Line(prevPoint, path.get(i)));
+//      prevPoint = path.get(i);
+//    }
+//
+//    sortedLines.add(new Line(prevPoint, firstPoint));
 
     ConnectivityInspector<Point, DefaultWeightedEdge> inspector = new ConnectivityInspector<>(graph);
 

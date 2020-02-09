@@ -68,7 +68,7 @@ public class Mesh {
     List<Integer> indices = new ArrayList();
     String[] datas = data.split(" ");
     for(int i = 1; i < datas.length; i++) {
-      indices.add(Integer.parseInt(datas[i].split("/")[0]));
+      indices.add(Integer.parseInt(datas[i].split("/")[0]) - 1);
     }
     return indices;
   }
