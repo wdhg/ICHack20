@@ -177,6 +177,7 @@ public class Board extends Renderer {
       oneLineDown();
     }
     createVerticesAndEdges();
+    this.render(this.vertices, this.edges);
   }
 
   class TAdapter extends KeyAdapter {
