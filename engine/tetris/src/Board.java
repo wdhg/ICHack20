@@ -57,7 +57,7 @@ public class Board extends Renderer {
           // 3 to 4
           edges.add(counter, counter + 1);
           // 4 to 1
-          edges.add(counter, n);
+          edges.add(counter, n - 1);
           counter++;
         }
       }
@@ -78,7 +78,6 @@ public class Board extends Renderer {
   }
 
   public void start() {
-
     curPiece = new TetrisShape();
     for (int i = 0; i < 4; i++) {
       board[curPiece.xs[i]][curPiece.ys[i]] = curPiece.getShape();
@@ -186,7 +185,6 @@ public class Board extends Renderer {
       oneLineDown();
     }
     createVerticesAndEdges();
-    this.render(this.vertices, this.edges);
   }
 
   class TAdapter extends KeyAdapter {
