@@ -1,32 +1,46 @@
 import com.google.gson.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Encoder {
-    public static String encode(List<Vector2> vertices, List<Integer> connections){
-        JsonArray lines = new JsonArray();
-        for (int i = 0; i < connections.size(); i+=2) {
+    private static List<double[]> genLines(List<Vector2> vertices, List<Integer> connections) {
+        List<double[]> ret = new ArrayList<>();
+        for (int i = 0; i < connections.size(); i += 2) {
             Vector2 start = vertices.get(connections.get(i));
             Vector2 end = vertices.get(connections.get(i+1));
-            double x1 = start.getX();
-            double y1 = start.getY();
-            double x2 = end.getX();
-            double y2 = end.getY();
-
-            JsonObject curLine = new JsonObject();
-            curLine.addProperty("x1", x1);
-            curLine.addProperty("y1", y1);
-            curLine.addProperty("x2", x2);
-            curLine.addProperty("y2",y2);
-
-            lines.add(curLine);
+            ret.add(new double[]{start.getX(), start.getY(), end.getX(), end.getY()});
         }
+        return ret;
+    }
 
-        JsonObject frame = new JsonObject();
-        frame.add("lines", lines);
+    public static List<String> encode(List<Vector2> vertices, List<Integer> connections){
+        List<double[]> lineCoords = genLines(vertices, connections);
+        List<String> ret = new ArrayList<>();
 
-        JsonObject root = new JsonObject();
-        root.add("frame", frame);
-        return root.toString();
+        int offset = 0;
+        int segmentSize = 300;
+
+        for (int i = 0; i < lineCoords.size() / segmentSize; i++) {
+            JsonArray lines = new JsonArray();
+            for (int j = 0; j < segmentSize && j+offset < lineCoords.size(); j++) {
+                JsonObject curLine = new JsonObject();
+                double[] coords = lineCoords.get(j + offset);
+                curLine.addProperty("x1", coords[0]);
+                curLine.addProperty("y1", coords[1]);
+                curLine.addProperty("x2", coords[2]);
+                curLine.addProperty("y2",coords[3]);
+                lines.add(curLine);
+                offset += j;
+            }
+
+            JsonObject frame = new JsonObject();
+            frame.add("lines", lines);
+
+            JsonObject root = new JsonObject();
+            root.add("frame", frame);
+            ret.add(root.toString());
+        }
+        return ret;
     }
 }

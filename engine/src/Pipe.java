@@ -10,7 +10,9 @@ public class Pipe {
         this.conn = new UDPConn();
     }
     public void send(List<Vector2> vertices, List<Integer> connections) throws IOException {
-        String json = Encoder.encode(vertices, connections);
-        conn.send(json);
+        List<String> jsons = Encoder.encode(vertices, connections);
+        for (String j: jsons){
+            conn.send(j);
+        }
     }
 }
