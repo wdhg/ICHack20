@@ -22,7 +22,7 @@ public class Hypercube {
     }
     for(int i = 0; i < 16; i++) {
       this.edgeData.add(i);
-      this.edgeData.add(i + 1);
+      this.edgeData.add((i + 1) % 16);
     }
   }
 
