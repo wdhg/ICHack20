@@ -8,7 +8,7 @@ public abstract class Renderer {
     try {
       this.pipe = new Pipe();
     } catch (Exception e) {
-      System.err.println("Pipe cannot connect");
+      System.err.println(e);
     }
   }
 

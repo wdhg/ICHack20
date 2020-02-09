@@ -6,8 +6,7 @@ public class TCPConn {
     private Socket socket;
 
     TCPConn() throws IOException {
-        this.socket = new Socket();
-        this.socket.connect(socket.getLocalSocketAddress(), defaultPort);
+        this.socket = new Socket("localhost", defaultPort);
     }
 
     public void send(String json) throws IOException {
