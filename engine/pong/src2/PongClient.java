@@ -1,4 +1,5 @@
 import java.util.Random;
+import java.util.Scanner;
 
 public class PongClient {
   public static void main(String[] args) throws InterruptedException {
@@ -10,10 +11,20 @@ public class PongClient {
 
     Pong pong = new Pong(ball, left, right);
 
+    Scanner keyboard = new Scanner(System.in);
+    System.out.println("Enter command (quit to exit):");
+
     while (true) {
       Thread.sleep(1000 / 30);
       pong.update();
       pong.render(pong.getVertices(), pong.getConnections());
+
+      String input = keyboard.nextLine();
+      if(input != null) {
+        if (input.equals("w")) {
+          left.move(0.1);
+        }
+      }
     }
   }
 }

@@ -5,7 +5,7 @@ public class Main {
     Cube cube = new Cube();
     while(true) {
       camera.draw(cube);
-      cube.rotate(Math.PI / 1000);
+      cube.rotate(Math.PI / 100);
       Thread.sleep(1000/60);
     }
   }

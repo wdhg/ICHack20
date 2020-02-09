@@ -24,4 +24,8 @@ public class Paddle {
   public void setTopLeft(Vector2 topLeft) {
     this.topLeft = topLeft;
   }
+
+  public void move(double amount) {
+    topLeft.setY(topLeft.getY() + amount);
+  }
 }

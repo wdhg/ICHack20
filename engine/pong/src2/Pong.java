@@ -32,13 +32,15 @@ public class Pong extends Renderer {
      && ball.getPos().getY() < left.getTopLeft().getY()
      && ball.getPos().getY() > left.getTopLeft().getY() - left.getHeight()) {
       ball.getVel().setX(-ball.getVel().getX());
-      ball.setPos(new Vector2(-0.9, ball.getPos().getY()));
+      ball.setPos(new Vector2(-0.85, ball.getPos().getY()));
     } else if (ball.getPos().getX() > right.getTopLeft().getX()
       && ball.getPos().getY() < right.getTopLeft().getY()
       && ball.getPos().getY() > right.getTopLeft().getY() - right.getHeight()) {
       ball.getVel().setX(-ball.getVel().getX());
-      ball.setPos(new Vector2(0.9, ball.getPos().getY()));
+      ball.setPos(new Vector2(0.85, ball.getPos().getY()));
     }
+
+
   }
 
   private void checkBounds() {
@@ -54,8 +56,8 @@ public class Pong extends Renderer {
   }
 
   private void checkEnd() {
-    if (ball.getPos().getX() > 0.8 || ball.getPos().getX() < -0.8) {
-      //won = true;
+    if (ball.getPos().getX() > 1 || ball.getPos().getX() < -1) {
+      won = true;
     }
   }
 
