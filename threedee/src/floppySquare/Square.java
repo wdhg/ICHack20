@@ -56,6 +56,10 @@ public class Square extends GameObject {
         v += g * timeDelta;
         double s = v * timeDelta + 0.5 * g * timeDelta * timeDelta;
         centreY += s;
+        if (centreY + sideLength / 2 > 1){
+            centreY = 1 - sideLength / 2;
+            v = 0;
+        }
     }
 
     @Override
