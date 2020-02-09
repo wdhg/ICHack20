@@ -8,14 +8,14 @@ import java.util.List;
 
 public class Pipe {
     private int defaultPort = 57480;
-    private UDPConn conn;
+    private TCPConn conn;
 
-    public Pipe() throws SocketException{
-        this.conn = new UDPConn(defaultPort);
+    public Pipe() throws IOException {
+        this.conn = new TCPConn(defaultPort);
     }
 
-    public Pipe(int port) throws SocketException {
-        this.conn = new UDPConn(port);
+    public Pipe(int port) throws IOException {
+        this.conn = new TCPConn(port);
     }
 
     // will block

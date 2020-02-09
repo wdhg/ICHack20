@@ -4,15 +4,13 @@ import java.net.UnknownHostException;
 import java.util.List;
 
 public class Pipe {
-    UDPConn conn;
+    TCPConn conn;
 
-    Pipe() throws SocketException, UnknownHostException {
-        this.conn = new UDPConn();
+    Pipe() throws IOException {
+        this.conn = new TCPConn();
     }
     public void send(List<Vector2> vertices, List<Integer> connections) throws IOException {
-        List<String> jsons = Encoder.encode(vertices, connections);
-        for (String j: jsons){
-            conn.send(j);
-        }
+        String json = Encoder.encode(vertices, connections);
+        conn.send(json);
     }
 }
