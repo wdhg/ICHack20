@@ -12,16 +12,13 @@ public class Camera extends Renderer{
   private double fov;
 
   public Camera() {
-    this.focalLength = 0.3;
+    this.focalLength = 0.9;
     this.position = new Vector3(0,0,-1);
     this.fov = 60;
   }
 
   public void draw(Hypercube hypercube) {
     List<Vector2> vertices = new ArrayList<>();
-
-    d += 0.1;
-
     for(Vector4 vertex : hypercube.getVertices()) {
       vertices.add(this.project(vertex));
     }
