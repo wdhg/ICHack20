@@ -30,10 +30,15 @@ public class Decoder {
         double x2 = lineObj.get("x2").getAsDouble();
         double y2 = lineObj.get("y2").getAsDouble();
         JsonElement maybeWeight = lineObj.get("weight");
+
+        Line line;
+
         if (maybeWeight == null){
-            return new Line(x1,y1,x2,y2);
+            line = new Line(x1,y1,x2,y2);
         } else {
-            return new Line(x1, y1, x2, y2, maybeWeight.getAsDouble());
+            line = new Line(x1, y1, x2, y2, maybeWeight.getAsDouble());
         }
+
+        return line;
     }
 }

@@ -46,6 +46,10 @@ public class Line extends Shape {
     return lines.stream().map(l -> l.scale(factor)).collect(Collectors.toList());
   }
 
+  public String toString() {
+    return "x1: " + getX1() + " y1: " + getY1() + " x2: " + getX2() + " y2: " + getY2();
+  }
+
   public Point getA() {
     return a;
   }

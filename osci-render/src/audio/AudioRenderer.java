@@ -42,9 +42,8 @@ public class AudioRenderer extends Thread {
         shape = shape.scale(FACTOR);
 
         double framesToDraw = shape.getWeight() * shape.getLength();
-        double drawingProgress = framesDrawn / framesToDraw;
 
-        System.out.println(framesToDraw);
+        double drawingProgress = framesToDraw == 0 ? 1 : framesDrawn / framesToDraw;
 
         for (int c = 0; c < FORMAT.outputs; c++) {
           ((float[]) output)[f * FORMAT.outputs] = (float) shape.nextX(drawingProgress);
@@ -70,7 +69,7 @@ public class AudioRenderer extends Thread {
   }
 
   public static void addShapes(List<Shape> newShapes) {
-      shapes.addAll(newShapes);
+    shapes.addAll(newShapes);
   }
 
   public static void updateFrame(List<Shape> frame) {
