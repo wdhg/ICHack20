@@ -17,7 +17,7 @@ public class Main {
         Math.PI / 100,
         0
       ));
-      Thread.sleep(1000/20);
+      Thread.sleep(1000/30);
     }
   }
 }

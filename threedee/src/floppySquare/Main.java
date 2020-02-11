@@ -10,6 +10,8 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws IOException {
         FloppySquare fs = new FloppySquare();
+
+
         Pipe pipe = new Pipe();
 
         Renderer renderer = new Renderer(fs, pipe);
